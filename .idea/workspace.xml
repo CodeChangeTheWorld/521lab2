@@ -10,16 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e932b0-7474-4626-ab83-bbe3990694c0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/process_schedule.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/process_schedule.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/terminal.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/terminal.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trap_handlers.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trap_handlers.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kernel_start.c" afterPath="$PROJECT_DIR$/kernel_start.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mem_management.c" afterPath="$PROJECT_DIR$/mem_management.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/page_table_management.c" afterPath="$PROJECT_DIR$/page_table_management.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/process_schedule.c" afterPath="$PROJECT_DIR$/process_schedule.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trap_handlers.c" afterPath="$PROJECT_DIR$/trap_handlers.c" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,21 +39,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="trap_handlers.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="trap_handlers.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/trap_handlers.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="54" column="1" lean-forward="true" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
+            <state relative-caret-position="323">
+              <caret line="70" column="17" lean-forward="true" selection-start-line="70" selection-start-column="17" selection-end-line="70" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="process_schedule.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="process_schedule.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/process_schedule.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="26" lean-forward="true" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+            <state relative-caret-position="401">
+              <caret line="222" column="0" lean-forward="true" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -68,8 +62,8 @@
       <file leaf-file-name="mem_management.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mem_management.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+            <state relative-caret-position="473">
+              <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -99,15 +93,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mem_management.c" />
         <option value="$PROJECT_DIR$/kernel_start.c" />
         <option value="$PROJECT_DIR$/terminal.h" />
         <option value="$PROJECT_DIR$/terminal.c" />
         <option value="$PROJECT_DIR$/page_table_management.c" />
         <option value="$PROJECT_DIR$/trap_handlers.h" />
-        <option value="$PROJECT_DIR$/trap_handlers.c" />
-        <option value="$PROJECT_DIR$/process_schedule.c" />
         <option value="$PROJECT_DIR$/process_schedule.h" />
+        <option value="$PROJECT_DIR$/process_schedule.c" />
+        <option value="$PROJECT_DIR$/mem_management.c" />
+        <option value="$PROJECT_DIR$/trap_handlers.c" />
       </list>
     </option>
   </component>
@@ -119,7 +113,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="649" />
+    <option name="width" value="630" />
     <option name="height" value="773" />
   </component>
   <component name="ProjectView">
@@ -352,15 +346,15 @@
       <workItem from="1489756826574" duration="1030000" />
       <workItem from="1489759617789" duration="11827000" />
       <workItem from="1489889559105" duration="8489000" />
-      <workItem from="1489924424806" duration="8341000" />
+      <workItem from="1489924424806" duration="14144000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29687000" />
+    <option name="totallyTimeSpent" value="35490000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="649" height="773" extended-state="0" />
+    <frame x="0" y="23" width="630" height="773" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -517,14 +511,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mem_management.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trap_handlers.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -541,14 +527,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trap_handlers.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="54" column="1" lean-forward="true" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/process_schedule.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -559,8 +537,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/process_schedule.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="26" lean-forward="true" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+        <state relative-caret-position="401">
+          <caret line="222" column="0" lean-forward="true" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mem_management.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trap_handlers.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="70" column="17" lean-forward="true" selection-start-line="70" selection-start-column="17" selection-end-line="70" selection-end-column="17" />
           <folding />
         </state>
       </provider>

@@ -155,4 +155,69 @@ raw_remove_head_of_schedule(){
 void
 add_pcb_to_schedule(struct process_control_block *pcb){
     struct schedule_item *new_item = malloc(sizeof(struct schedule_item));
+    new_item->pcb = pcb;
+    new_item->next = head;
+    head = new_item;
 }
+
+void
+decrement_delays(){
+    struct schedule_item *current = head;
+    while(current!=NULL){
+        struct process_control_block *pcb = current->pcb;
+        if(pcb->delay > 0){
+            pcb->delay--;
+        }
+        current = current->next;
+    }
+}
+
+int
+is_current_process_orphan(){
+    struct schedule_item *head = get_head();
+    return head->pcb->parent_pid == ORPHAN_PARENT_PID;
+}
+
+struct process_control_block *
+get_pcb_by_pid(int pid){
+    struct schedule_item *current = get_head();
+    if(current == NULL){
+        return NULL;
+    }
+    while(current != NULL){
+        if(current->pcb->pid == pid){
+            return current->pcb;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
+
+void
+wake_up_a_reader_for_terminal(int terminal){
+    struct schedule_item *current = get_head();
+    while(current!=NULL){
+        struct process_control_block *pcb = current->pcb;
+        if(pcb->is_waiting_to_read_from_terminal == terminal){
+            pcb->is_waiting_to_read_from_terminal = -1;
+            return;
+        }
+        current = current->next;
+    }
+    return;
+}
+
+void
+wake_up_a_writer_for_terminal(int terminal){
+    struct schedule_item *current = get_head();
+    while(current!=NULL){
+        struct process_control_block *pcb = current->pcb;
+        if(pcb->is_waiting_to_write_to_terminal == terminal){
+            pcb->is_waiting_to_write_to_terminal = -1;
+            return;
+        }
+        current = current->next;
+    }
+    return;
+}
+

@@ -54,7 +54,21 @@ void exec_trap_handler(ExceptionStackFrame *frame){
 
 }
 void exit_handler(ExceptionStackFrame *frame,int error){
+    int exit_status;
+    if(error){
+        exit_status = ERROR;
+    } else{
+        exit_status = frame->regs[1];
+    }
 
+    struct schedule_item *current =get_head();
+    if(!is_current_process_orphan()){
+        struct process_control_bloc *parent_pcb = get_pcb_by_pid(current->pcb->parent_pid);
+        parent_pcb->is_waiting = 0;
+        add_child_exit_status(parent_pcb,exit_status,get_current_pid());
+    }
+
+    decapitate();
 }
 void wait_trap_handler(ExceptionStackFrame *frame){
     int *status = (int *)frame->regs[1];
@@ -76,13 +90,24 @@ void wait_trap_handler(ExceptionStackFrame *frame){
     frame->regs[0] = esn->pid;
 }
 void getpid_handler(ExceptionStackFrame *frame){
-
+    frame->regs[0] = get_current_pid();
 }
-void brk_handler(ExceptionStackFrame *frame){
 
-}
 void delay_handler(ExceptionStackFrame *frame){
+    int num_ticks_to_wait = frame->regs[1];
+    if(num_ticks_to_wait < 0){
+        frame->regs[0] = ERROR;
+        return;
+    }
+    struct schedule_item_ *item = get_head();
+    struct process_control_block *current_pcb = item->pcb;
+    current_pcb->delay = num_ticks_to_wait;
 
+    frame->regs[0]=0;
+    if(num_ticks_to_wait >0){
+        schedule_processes();
+    }
+    return;;
 }
 void tty_read_handler(ExceptionStackFrame *frame){
 
