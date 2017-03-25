@@ -77,10 +77,49 @@ void* vaddr_to_paddr(void *vm_addr){
 }
 
 void brk_handler(ExceptionInfo *info){
-    void *addr = (void*)frame->regs[1];
+    void *addr = (void*)info->regs[1];
     int i;
 
-    if(UP_TO_PAGE(addr) > UP_TO_PAGE(brk)){
-        int num_page_required =
+    if(UP_TO_PAGE(addr) <= MEM_INVALID_SIZE){
+        info->regs[0] = ERROR;
+        return;
     }
+    struct schedule_item *item = get_head();
+    struct process_control_block *pcb = item->pcb;
+    void *brk = pcb->brk;
+    void *user_stack_limit = pcb->user_stack_limit;
+    struct pte* user_page_table = pcb->page_table;
+
+    if(UP_TO_PAGE(addr) >= DOWN_TO_PAGE(user_stack_limit)-1){
+        info->regs[0] = ERROR;
+        return;
+    }
+
+    if(UP_TO_PAGE(addr)>UP_TO_PAGE(brk)){
+        //add more pages
+        int num_pages_required = ((long)UP_TO_PAGE(addr)- (long)UP_TO_PAGE(brk))/PAGESIZE;
+        if(num_free_pages() < num_pages_required){
+            info->regs[0] = ERROR;
+            return;
+        }else{
+            TracePrintf(3,"mem_management: set brk to acquire more pages. ");
+            for(i=0;i<num_pages_required;i++){
+                unsigned int physical_page_num = get_free_phy_page();
+                int vpn = (long)UP_TO_PAGE(brk)/PAGESIZE + i;
+                user_page_table[vpn].valid =1;
+                user_page_table[vpn].pfn = physical_page_num;
+            }
+        }
+    }else if(UP_TO_PAGE(addr)<UP_TO_PAGE(brk)){
+        //free extra pages
+        int num_pages_free = ((long)UP_TO_PAGE(brk)-(long)UP_TO_PAGE(addr))/PAGESIZE;
+        TracePrintf(3,"mem_management: prepare to free %d pages",num_pages_free);
+        for(int i=0;i<num_pages_free;i++){
+            user_page_table[(long)UP_TO_PAGE(brk)/PAGESIZE-i].valid = 0;
+            int pysical_page_num = user_page_table[(long)UP_TO_PAGE(brk)/PAGESIZE -i].pfn;
+            free_phy_page(pysical_page_num);
+        }
+    }
+    info->regs[0] =0;
+    pcb->brk = (void*)UP_TO_PAGE(addr);
 }
