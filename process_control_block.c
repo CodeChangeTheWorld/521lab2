@@ -5,7 +5,7 @@
 #include "stdlib.h"
 
 struct process_control_block * create_idle_process(){
-    struct process_control_block *pcb = create_empty_process(DLE_PID, ORPHAN_PARENT_PID);
+    struct process_control_block *pcb = create_empty_process(IDLE_PID, ORPHAN_PARENT_PID);
     init_idle_page_table(pcb->page_table);
     return pcb;
 }
