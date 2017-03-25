@@ -64,7 +64,7 @@ void init_initial_page_table(struct pte* page_table){
         page_table[i].pfn = i;
     }
 
-    TracePrintf("page_table_management: user page table initialized for idle process");
+    TracePrintf(3, "page_table_management: user page table initialized for idle process");
 }
 
 void init_page_table(struct pte* page_table){
