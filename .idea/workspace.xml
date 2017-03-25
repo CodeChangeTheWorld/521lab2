@@ -10,20 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e932b0-7474-4626-ab83-bbe3990694c0" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Makefile.lab2.template" afterPath="$PROJECT_DIR$/Makefile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Makefile.lab2.template" afterPath="$PROJECT_DIR$/Makefile.lab2.template" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kernel_start.c" afterPath="$PROJECT_DIR$/kernel_start.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/load_program.c" afterPath="$PROJECT_DIR$/load_program.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/load_program.h" afterPath="$PROJECT_DIR$/load_program.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mem_management.c" afterPath="$PROJECT_DIR$/mem_management.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mem_management.h" afterPath="$PROJECT_DIR$/mem_management.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/page_table_management.c" afterPath="$PROJECT_DIR$/page_table_management.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/page_table_management.h" afterPath="$PROJECT_DIR$/page_table_management.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/process_control_block.c" afterPath="$PROJECT_DIR$/process_control_block.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/process_control_block.h" afterPath="$PROJECT_DIR$/process_control_block.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/process_schedule.c" afterPath="$PROJECT_DIR$/process_schedule.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/process_schedule.h" afterPath="$PROJECT_DIR$/process_schedule.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trap_handlers.c" afterPath="$PROJECT_DIR$/trap_handlers.c" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,21 +27,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="test_brk.c" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test_brk.c">
+      <file leaf-file-name="Makefile" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Makefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="28" lean-forward="true" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Makefile.lab2.template" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Makefile.lab2.template">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-517">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="285">
+              <caret line="33" column="60" lean-forward="true" selection-start-line="33" selection-start-column="60" selection-end-line="33" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -336,12 +314,12 @@
       <workItem from="1489889559105" duration="8489000" />
       <workItem from="1489924424806" duration="20013000" />
       <workItem from="1490308767996" duration="11624000" />
-      <workItem from="1490400472372" duration="11088000" />
+      <workItem from="1490400472372" duration="11594000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64071000" />
+    <option name="totallyTimeSpent" value="64577000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
@@ -677,18 +655,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Makefile.lab2.template">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-517">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_brk.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="28" lean-forward="true" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="33" column="60" lean-forward="true" selection-start-line="33" selection-start-column="60" selection-end-line="33" selection-end-column="60" />
           <folding />
         </state>
       </provider>
