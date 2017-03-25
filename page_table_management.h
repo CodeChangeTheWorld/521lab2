@@ -12,5 +12,7 @@ extern struct pte *kernel_page_table;
 
 void build_kernel_page_table();
 void add_first_record();
-void init_new_page_table(struct pte* page_table);
-void init_idle_page_table(struct pte* page_table);
+void init_page_table(struct pte* page_table);
+void init_initial_page_table(struct pte* page_table);
+struct pte *create_page_table();
+

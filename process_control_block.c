@@ -6,13 +6,13 @@
 
 struct process_control_block * create_idle_process(){
     struct process_control_block *pcb = create_empty_process(IDLE_PID, ORPHAN_PARENT_PID);
-    init_idle_page_table(pcb->page_table);
+    init_initial_page_table(pcb->page_table);
     return pcb;
 }
 
 struct process_control_block *create_new_process(int pid, int parent_id){
     struct process_control_block *pcb = create_empty_process(pid,parent_id);
-    init_new_page_table(pcb->page_table);
+    init_page_table(pcb->page_table);
     return pcb;
 }
 

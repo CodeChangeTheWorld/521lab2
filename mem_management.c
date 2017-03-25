@@ -75,3 +75,12 @@ void* vaddr_to_paddr(void *vm_addr){
     long offset = (long)vm_addr&PAGEOFFSET;
     return (void*)((long)ppage_base+offset);
 }
+
+void brk_handler(ExceptionInfo *info){
+    void *addr = (void*)frame->regs[1];
+    int i;
+
+    if(UP_TO_PAGE(addr) > UP_TO_PAGE(brk)){
+        int num_page_required =
+    }
+}

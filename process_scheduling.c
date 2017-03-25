@@ -17,3 +17,8 @@ void add_to_schedule(struct process_control_block* pcb){
     item->next = head;
     head = item;
 }
+
+struct schedule_item *
+get_head() {
+    return head;
+}

@@ -13,3 +13,4 @@ struct schedule_item{
 };
 
 void add_to_schedule(struct process_control_block* pcb);
+struct schedule_item * get_head();
