@@ -10,7 +10,8 @@ struct process_control_block * create_idle_process(){
     return pcb;
 }
 
-struct process_control_block *create_new_process(int pid, int parent_id){
+struct process_control_block *
+create_new_process(int pid, int parent_id){
     struct process_control_block *pcb = create_empty_process(pid,parent_id);
     init_page_table(pcb->page_table);
     return pcb;
