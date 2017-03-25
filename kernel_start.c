@@ -61,16 +61,16 @@ void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void* orig_brk, ch
     TracePrintf(2,"kernel_start: added first page table kernel");
 
     //Initiate user page table, needs to build process
-    struct process_control_block *pcb=create_idle_process();
+    struct process_control_block *idle_pcb=create_idle_process();
 
     //Write page table register and enable virtual memory
-    WriteRegister(REG_PTR0, (RCS421RegVal)pcb->page_table);
+    WriteRegister(REG_PTR0, (RCS421RegVal)idle_pcb->page_table);
     WriteRegister(REG_PTR1, (RCS421RegVal)kernel_page_table);
     WriteRegister(REG_VM_ENABLE, 1);
     vm_enabled = 1;
 
     //page table record can only be made after vm enabled.
-    struct process_control_block *pcb=create_new_process(INIT_PID, ORPHAN_PARENT_PID);
+    struct process_control_block *init_pcb=create_new_process(INIT_PID, ORPHAN_PARENT_PID);
 
     char *loadargs[1];
     loadargs[0] = NULL;
