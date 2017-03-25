@@ -51,6 +51,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="idle.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/idle.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="process_scheduling.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/process_scheduling.c">
           <provider selected="true" editor-type-id="text-editor">
@@ -64,23 +74,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="context_switch.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/context_switch.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="49" column="76" lean-forward="true" selection-start-line="49" selection-start-column="76" selection-end-line="49" selection-end-column="76" />
-              <folding>
-                <element signature="e#0#27#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="process_scheduling.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/process_scheduling.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
               <caret line="14" column="35" lean-forward="false" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="kernel_start.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kernel_start.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-873">
+              <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -99,8 +107,8 @@
       <file leaf-file-name="mem_management.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mem_management.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="116" column="12" lean-forward="false" selection-start-line="116" selection-start-column="12" selection-end-line="116" selection-end-column="12" />
+            <state relative-caret-position="270">
+              <caret line="38" column="1" lean-forward="true" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -111,16 +119,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="525">
               <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="idle.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/idle.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -140,8 +138,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>init_</find>
-      <find>init_ker</find>
       <find>occupy_pages_in_range</find>
       <find>create_unprepped_process</find>
       <find>add_pcb_to_schedule</find>
@@ -170,6 +166,8 @@
       <find>get_top</find>
       <find>num_free_pages</find>
       <find>free_page</find>
+      <find>for(int</find>
+      <find>occupy</find>
     </findStrings>
     <replaceStrings>
       <replace>info</replace>
@@ -441,12 +439,12 @@
       <workItem from="1489889559105" duration="8489000" />
       <workItem from="1489924424806" duration="20013000" />
       <workItem from="1490308767996" duration="11624000" />
-      <workItem from="1490400472372" duration="31838000" />
+      <workItem from="1490400472372" duration="33853000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84821000" />
+    <option name="totallyTimeSpent" value="86836000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
@@ -644,14 +642,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kernel_start.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/load_program.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -710,14 +700,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/idle.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/context_switch.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="446">
@@ -771,14 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/init.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mem_management.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -800,10 +774,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/kernel_start.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-873">
+          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/init.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/idle.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mem_management.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="116" column="12" lean-forward="false" selection-start-line="116" selection-start-column="12" selection-end-line="116" selection-end-column="12" />
+        <state relative-caret-position="270">
+          <caret line="38" column="1" lean-forward="true" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
           <folding />
         </state>
       </provider>

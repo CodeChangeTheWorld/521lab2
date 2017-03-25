@@ -8,6 +8,29 @@ int *phy_page_occupied = NULL;
 int vm_enabled = 0;
 void *kernel_brk = (void *)VMEM_1_BASE;
 
+void SetKernelBrk(void *addr){
+    int i;
+    if(vm_enabled){
+        int num_page_required= ((long)UP_TO_PAGE(addr) - (long)kernel_brk)/PAGESIZE;
+        if(num_free_pages() < num_page_required){
+            return -1;
+        }else{
+            for(i =0;i<num_page_required;i++){
+                unsigned int physical_page_number = get_free_phy_page();
+                int vpn = ((long)kernel_brk-VMEM_1_BASE)/PAGESIZE + i;
+
+                kernel_page_table[vpn].valid =1;
+                kernel_page_table[vpn].pfn = physical_page_number;
+            }
+        }
+    }else{
+        if((long)addr <= (long)kernel_brk-PAGESIZE){
+            return -1;
+        }
+        occupy_pages_to(addr);
+    }
+    return 0;
+}
 void init_pysical_pages(unsigned int pmem_size){
     //initiate physical page number and an array to keep track of whether a page is occupied.
     phy_page_num = pmem_size/PAGESIZE;
@@ -22,6 +45,12 @@ void occupy_pages(void* lo , void* hi) {
     for (i = low; i < high; i++) {
         phy_page_occupied[i] = 1;
     }
+}
+void occupy_pages_to(void* to) {
+    if(phy_page_occupied!=NULL){
+        occupy_pages(kernel_brk,to);
+    }
+    kernel_brk = (void *)UP_TO_PAGE(to);
 }
 
 unsigned int get_top_page(){
