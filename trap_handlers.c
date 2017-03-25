@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "process_scheduling.h"
 #include "process_control_block.h"
-#include "memory_management.h"
+#include "mem_management.h"
 #include "context_switch.h"
 #include "load_program.h"
 #include "terminals.h"
