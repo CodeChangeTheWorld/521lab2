@@ -10,9 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e932b0-7474-4626-ab83-bbe3990694c0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/terminals.c" afterPath="$PROJECT_DIR$/terminals.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/terminals.h" afterPath="$PROJECT_DIR$/terminals.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/context_switch.c" afterPath="$PROJECT_DIR$/context_switch.c" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,7 +36,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="terminals.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="terminals.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/terminals.c">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
@@ -46,6 +44,28 @@
               <folding>
                 <element signature="e#41#63#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="context_switch.c" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/context_switch.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="446">
+              <caret line="49" column="76" lean-forward="true" selection-start-line="49" selection-start-column="76" selection-end-line="49" selection-end-column="76" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="context_switch.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/context_switch.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -86,6 +106,7 @@
       <find>ExceptionStackName</find>
       <find>pcb</find>
       <find>UP_TO_D</find>
+      <find>J</find>
     </findStrings>
     <replaceStrings>
       <replace>info</replace>
@@ -108,7 +129,6 @@
         <option value="$PROJECT_DIR$/include/hardware.h" />
         <option value="$PROJECT_DIR$/load_program.h" />
         <option value="$PROJECT_DIR$/kernel_start.c" />
-        <option value="$PROJECT_DIR$/context_switch.c" />
         <option value="$PROJECT_DIR$/context_switch.h" />
         <option value="$PROJECT_DIR$/load_program.c" />
         <option value="$PROJECT_DIR$/page_table_management.h" />
@@ -121,6 +141,7 @@
         <option value="$PROJECT_DIR$/Makefile" />
         <option value="$PROJECT_DIR$/terminals.h" />
         <option value="$PROJECT_DIR$/terminals.c" />
+        <option value="$PROJECT_DIR$/context_switch.c" />
       </list>
     </option>
   </component>
@@ -353,12 +374,12 @@
       <workItem from="1489889559105" duration="8489000" />
       <workItem from="1489924424806" duration="20013000" />
       <workItem from="1490308767996" duration="11624000" />
-      <workItem from="1490400472372" duration="25365000" />
+      <workItem from="1490400472372" duration="25735000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78348000" />
+    <option name="totallyTimeSpent" value="78718000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
@@ -572,29 +593,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/context_switch.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="30" lean-forward="false" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/idle.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/context_switch.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="47" column="29" lean-forward="false" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -708,6 +711,24 @@
           <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
             <element signature="e#41#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/context_switch.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/context_switch.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="49" column="76" lean-forward="true" selection-start-line="49" selection-start-column="76" selection-end-line="49" selection-end-column="76" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
