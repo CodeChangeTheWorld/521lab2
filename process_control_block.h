@@ -26,3 +26,4 @@ struct process_control_block{
 };
 
 struct process_control_block * create_idle_process();
+struct process_control_block* create_empty_process(int pid, int parent_pid);
