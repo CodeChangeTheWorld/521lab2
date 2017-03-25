@@ -114,7 +114,7 @@ void brk_handler(ExceptionInfo *info){
         //free extra pages
         int num_pages_free = ((long)UP_TO_PAGE(brk)-(long)UP_TO_PAGE(addr))/PAGESIZE;
         TracePrintf(3,"mem_management: prepare to free %d pages",num_pages_free);
-        for(int i=0;i<num_pages_free;i++){
+        for(i=0;i<num_pages_free;i++){
             user_page_table[(long)UP_TO_PAGE(brk)/PAGESIZE-i].valid = 0;
             int pysical_page_num = user_page_table[(long)UP_TO_PAGE(brk)/PAGESIZE -i].pfn;
             free_phy_page(pysical_page_num);
