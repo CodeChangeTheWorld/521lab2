@@ -10,7 +10,7 @@
 
 void getpid_handler(ExceptionInfo *info);
 void delay_handler(ExceptionInfo *info);
-void exit_handler(ExceptionInfo *info);
+void exit_handler(ExceptionInfo *info, int error);
 void fork_trap_handler(ExceptionInfo *info);
 void wait_trap_handler(ExceptionInfo *info);
 void exec_trap_handler(ExceptionInfo *info);
