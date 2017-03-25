@@ -8,7 +8,7 @@ int *phy_page_occupied = NULL;
 int vm_enabled = 0;
 void *kernel_brk = (void *)VMEM_1_BASE;
 
-void SetKernelBrk(void *addr){
+int SetKernelBrk(void *addr){
     int i;
     if(vm_enabled){
         int num_page_required= ((long)UP_TO_PAGE(addr) - (long)kernel_brk)/PAGESIZE;
