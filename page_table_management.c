@@ -4,7 +4,7 @@
 struct pte *kernel_page_table;
 struct page_table_record *first_page_table_record;
 
-page_table_record * get_first_page_table_record(){
+struct page_table_record * get_first_page_table_record(){
     return first_page_table_record;
 }
 void build_kernel_page_table(){
@@ -49,7 +49,7 @@ void add_first_record(){
 }
 
 void init_idle_page_table(struct pte* page_table){
-    TracePrint("page_table_management: user page table for idle process");
+    TracePrintf("page_table_management: user page table for idle process");
     int i;
     for(i=0;i<PAGE_TABLE_LEN;i++){
         if(i >= KERNEL_STACK_BASE/PAGESIZE){

@@ -6,6 +6,7 @@
 int phy_page_num;
 int *phy_page_occupied = NULL;
 int vm_enabled = 0;
+void *kernel_brk = (void *)VMEM_1_BASE;
 
 void init_pysical_pages(unsigned int pmem_size){
     //initiate physical page number and an array to keep track of whether a page is occupied.
