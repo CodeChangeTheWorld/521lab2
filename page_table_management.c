@@ -49,7 +49,7 @@ void add_first_record(){
 }
 
 void init_idle_page_table(struct pte* page_table){
-    TracePrintf("page_table_management: user page table for idle process");
+    TracePrintf(2, "page_table_management: user page table for idle process");
     int i;
     for(i=0;i<PAGE_TABLE_LEN;i++){
         if(i >= KERNEL_STACK_BASE/PAGESIZE){
