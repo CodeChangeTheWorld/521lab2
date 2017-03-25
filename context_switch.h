@@ -4,5 +4,5 @@
 #include <string.h>
 
 
-SavedContext * IdleInitSwitch(SavedContext *ctxp, void *p1, void *p2);
+SavedContext * idle_init_switch(SavedContext *ctxp, void *p1, void *p2);
 SavedContext * MyContextSwitch(SavedContext *ctxp, void *p1, void *p2);
