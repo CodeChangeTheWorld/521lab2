@@ -2,7 +2,11 @@
 #include "page_table_management.h"
 
 struct pte *kernel_page_table;
+struct page_table_record *first_page_table_record;
 
+page_table_record * get_first_page_table_record(){
+    return first_page_table_record;
+}
 void build_kernel_page_table(){
     int i;
     kernel_page_table = malloc(PAGE_TABLE_SIZE);
@@ -23,7 +27,7 @@ void build_kernel_page_table(){
         kernel_page_table[i].uprot = PROT_NONE;
         kernel_page_table[i].pfn = i+ (long)VMEM_1_BASE/PAGESIZE;
     }
-    TracePrint(2, "page_table_management: kernel page build.");
+    TracePrintf(2, "page_table_management: kernel page build.");
 }
 
 void add_first_record(){
@@ -35,7 +39,7 @@ void add_first_record(){
     rec->page_base = page_base;
     rec->next = NULL;
 
-    unsigned int pn = get_top_page();
+    unsigned int pfn = get_top_page();
     int vpn = (long)(page_base- VMEM_1_BASE)/PAGESIZE;
 
     kernel_page_table[vpn].valid = 1;
