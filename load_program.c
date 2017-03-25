@@ -61,8 +61,8 @@ int LoadProgram(char *name, char **args,ExceptionInfo *info, struct pte *page_ta
 
 
     cp= ((char*) USER_STACK_LIMIT) - size;
-    cpp = (char **)(unsigned long)cp&(-1<<4); //align cpp to multimple of 8
-    cpp = (char **)(unsigned long)cpp - ((argcount + 4)* sizeof(void *));
+    cpp = (char **)((unsigned long)cp & (-1<<4)); //align cpp to multimple of 8
+    cpp = (char **)((unsigned long)cpp - ((argcount + 4)* sizeof(void *)));
 
     //calculate locations for text, data and stack
     text_npg = li.text_size >> PAGESHIFT;
@@ -87,21 +87,21 @@ int LoadProgram(char *name, char **args,ExceptionInfo *info, struct pte *page_ta
     int text_data_bass_top = text_npg+ data_bss_npg;
     for(i=0; i<text_data_bass_top;i++){
         if(i<text_data_bass_top){
-            page_table_to_load[i+MEM_INVALID_ID_PAGES].uprot = PROT_READ | PROT_EXEC;
+            page_table_to_load[i+MEM_INVALID_PAGES].uprot = PROT_READ | PROT_EXEC;
         }else{
-            page_table_to_load[i+MEM_INVALID_ID_PAGES].uprot = PROT_READ | PROT_WRITE;
+            page_table_to_load[i+MEM_INVALID_PAGES].uprot = PROT_READ | PROT_WRITE;
         }
-        page_table_to_load[i+MEM_INVALID_ID_PAGES].valid = 1;
-        page_table_to_load[i+MEM_INVALID_ID_PAGES].kprot = PROT_READ | PROT_WRITE;
-        page_table_to_load[i+MEM_INVALID_ID_PAGES].pfn = get_free_phy_page();
+        page_table_to_load[i+MEM_INVALID_PAGES].valid = 1;
+        page_table_to_load[i+MEM_INVALID_PAGES].kprot = PROT_READ | PROT_WRITE;
+        page_table_to_load[i+MEM_INVALID_PAGES].pfn = get_free_phy_page();
     }
 
-    schedule_item *item = get_head();
+    struct schedule_item *item = get_head();
     struct process_control_block *pcb = item->pcb;
-    pcb->brk = (void*)UP_TO_DATE(MEM_INVALID_PAGES + text_npg+ data_bss_npg)*PAGESIZE;
+    pcb->brk = (void*)UP_TO_PAGE((MEM_INVALID_PAGES + text_npg+ data_bss_npg)*PAGESIZE);
 
     int last_user_page = USER_STACK_LIMIT/PAGESIZE -1;
-    for(int i = last_user_page;i>last_user_page - stack_npg;i--){
+    for(i = last_user_page;i>last_user_page - stack_npg;i--){
         page_table_to_load[i].valid = 1;
         page_table_to_load[i].kprot = PROT_READ | PROT_WRITE;
         page_table_to_load[i].uprot = PROT_READ | PROT_WRITE;
