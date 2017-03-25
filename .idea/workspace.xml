@@ -10,7 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e932b0-7474-4626-ab83-bbe3990694c0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/context_switch.c" afterPath="$PROJECT_DIR$/context_switch.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trap_handlers.c" afterPath="$PROJECT_DIR$/trap_handlers.c" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,7 +48,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="context_switch.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="context_switch.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/context_switch.c">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="446">
@@ -56,6 +56,26 @@
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trap_handlers.c" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/trap_handlers.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="205" column="40" lean-forward="true" selection-start-line="205" selection-start-column="40" selection-end-line="205" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trap_handlers.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trap_handlers.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -125,7 +145,6 @@
         <option value="$PROJECT_DIR$/process_schedule.c" />
         <option value="$PROJECT_DIR$/idle.c" />
         <option value="$PROJECT_DIR$/trap_handlers.h" />
-        <option value="$PROJECT_DIR$/trap_handlers.c" />
         <option value="$PROJECT_DIR$/include/hardware.h" />
         <option value="$PROJECT_DIR$/load_program.h" />
         <option value="$PROJECT_DIR$/kernel_start.c" />
@@ -142,6 +161,7 @@
         <option value="$PROJECT_DIR$/terminals.h" />
         <option value="$PROJECT_DIR$/terminals.c" />
         <option value="$PROJECT_DIR$/context_switch.c" />
+        <option value="$PROJECT_DIR$/trap_handlers.c" />
       </list>
     </option>
   </component>
@@ -374,12 +394,12 @@
       <workItem from="1489889559105" duration="8489000" />
       <workItem from="1489924424806" duration="20013000" />
       <workItem from="1490308767996" duration="11624000" />
-      <workItem from="1490400472372" duration="25735000" />
+      <workItem from="1490400472372" duration="25834000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78718000" />
+    <option name="totallyTimeSpent" value="78817000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
@@ -577,22 +597,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trap_handlers.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="25" lean-forward="true" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trap_handlers.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/idle.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -730,6 +734,22 @@
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trap_handlers.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trap_handlers.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="205" column="40" lean-forward="true" selection-start-line="205" selection-start-column="40" selection-end-line="205" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
