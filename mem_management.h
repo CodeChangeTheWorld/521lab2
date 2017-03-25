@@ -5,6 +5,9 @@
 
 
 extern int vm_enabled;
+extern void *kernel_brk;
+
+
 void init_pysical_pages(unsigned int);
 void occupy_pages(void* lo , void* hi);
 void build_kernel_page_table();
