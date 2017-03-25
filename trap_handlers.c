@@ -2,63 +2,63 @@
 // Created by Liu Fang on 3/19/17.
 //
 
-void getpid_handler(ExceptionStackFrame *frame);
-void delay_handler(ExceptionStackFrame *frame);
-void exit_handler(ExceptionStackFrame *frame);
-void fork_trap_handler(ExceptionStackFrame *frame);
-void wait_trap_handler(ExceptionStackFrame *frame);
-void exec_trap_handler(ExceptionStackFrame *frame);
-void tty_read_handler(ExceptionStackFrame *frame);
-void tty_write_handler(ExceptionStackFrame *frame);
+void getpid_handler(ExceptionInfo *info);
+void delay_handler(ExceptionInfo *info);
+void exit_handler(ExceptionInfo *info);
+void fork_trap_handler(ExceptionInfo *info);
+void wait_trap_handler(ExceptionInfo *info);
+void exec_trap_handler(ExceptionInfo *info);
+void tty_read_handler(ExceptionInfo *info);
+void tty_write_handler(ExceptionInfo *info);
 
 #define SCHEDULE_DELAY 2
 int time_till_switch= SCHEDULE_DELAY;
 
-void kernel_trap_handler(ExceptionStackFrame *frame){
+void kernel_trap_handler(ExceptionInfo *info){
 
-    int code = frame->code;
+    int code = info->code;
     switch(code){
         case YALNIX_FORK:
-            fork_trap_handler(frame);
+            fork_trap_handler(info);
             break;
         case YALNIX_EXEC:
-            exec_trap_handler(frame);
+            exec_trap_handler(info);
             break;
         case YALNIX_EXIT:
-            exit_handler(frame,0);
+            exit_handler(info,0);
             break;
         case YALNIX_WAIT:
-            wait_trap_handler(frame);
+            wait_trap_handler(info);
             break;
         case YALNIX_GETPID:
-            getpid_handler(frame);
+            getpid_handler(info);
             break;
         case YALNIX_BRK:
-            brk_handler(frame);
+            brk_handler(info);
             break;
         case YALNIX_DELAY:
-            delay_handler(frame);
+            delay_handler(info);
             break;
         case YALNIX_TTY_READ:
-            tty_read_handler(frame);
+            tty_read_handler(info);
             break;
         case YALNIX_TTY_WRITE:
-            tty_write_handler(frame);
+            tty_write_handler(info);
             break;
     }
 }
-void fork_trap_handler(ExceptionStackFrame *frame){
+void fork_trap_handler(ExceptionInfo *info){
 
 }
-void exec_trap_handler(ExceptionStackFrame *frame){
+void exec_trap_handler(ExceptionInfo *info){
 
 }
-void exit_handler(ExceptionStackFrame *frame,int error){
+void exit_handler(ExceptionInfo *info,int error){
     int exit_status;
     if(error){
         exit_status = ERROR;
     } else{
-        exit_status = frame->regs[1];
+        exit_status = info->regs[1];
     }
 
     struct schedule_item *current =get_head();
@@ -70,15 +70,15 @@ void exit_handler(ExceptionStackFrame *frame,int error){
 
     decapitate();
 }
-void wait_trap_handler(ExceptionStackFrame *frame){
-    int *status = (int *)frame->regs[1];
+void wait_trap_handler(ExceptionInfo *info){
+    int *status = (int *)info->regs[1];
     struct schedule_item *head = get_head();
     struct process_control_block *parent_pcb = head->pcb;
 
     struct exit_status_node *esn = pop_next_child_exit_status_node(parent_pcb);
     if(esn == NULL){
         if(parent_pcb->num_children == 0){
-            frame->reg[0] = (long)NULL;
+            info->reg[0] = (long)NULL;
             return;
         }
         parent_pcb->is_waiting = 1;
@@ -87,54 +87,54 @@ void wait_trap_handler(ExceptionStackFrame *frame){
         esn = pop_next_child_exit_status_node(parent_pcb);
     }
     *status_ptr = esn->exit_status;
-    frame->regs[0] = esn->pid;
+    info->regs[0] = esn->pid;
 }
-void getpid_handler(ExceptionStackFrame *frame){
-    frame->regs[0] = get_current_pid();
+void getpid_handler(ExceptionInfo *info){
+    info->regs[0] = get_current_pid();
 }
 
-void delay_handler(ExceptionStackFrame *frame){
-    int num_ticks_to_wait = frame->regs[1];
+void delay_handler(ExceptionInfo *info){
+    int num_ticks_to_wait = info->regs[1];
     if(num_ticks_to_wait < 0){
-        frame->regs[0] = ERROR;
+        info->regs[0] = ERROR;
         return;
     }
     struct schedule_item_ *item = get_head();
     struct process_control_block *current_pcb = item->pcb;
     current_pcb->delay = num_ticks_to_wait;
 
-    frame->regs[0]=0;
+    info->regs[0]=0;
     if(num_ticks_to_wait >0){
         schedule_processes();
     }
     return;
 }
-void tty_read_handler(ExceptionStackFrame *frame){
-    int terminal = frame->regs[1];
+void tty_read_handler(ExceptionInfo *info){
+    int terminal = info->regs[1];
     if(terminal < 0 || terminal>NUM_TERMINALS){
-        frame->regs[0] = ERROR;
+        info->regs[0] = ERROR;
         return;
     }
-    void *buf = (void*)frame->regs[2];
-    int len = frame->regs[3];
+    void *buf = (void*)info->regs[2];
+    int len = info->regs[3];
 
     int num_read = read_from_buffer(terminal, buf, len);
     if(num_read >= 0){
-        frame->regs[0] = num_read;
+        info->regs[0] = num_read;
     }else{
-        frame->regs[0]= ERROR;
+        info->regs[0]= ERROR;
     }
 }
 
 
-void tty_write_handler(ExceptionStackFrame *frame){
-    int terminal = frame->regs[1];
+void tty_write_handler(ExceptionInfo *info){
+    int terminal = info->regs[1];
     if(terminal < 0 || terminal > NUM_TERMINALS){
-        frame->regs[0] = ERROR;
+        info->regs[0] = ERROR;
         return;
     }
-    void *buf = (void*)frame->regs[2];
-    int len = frame->regs[3];
+    void *buf = (void*)info->regs[2];
+    int len = info->regs[3];
     struct schedule_item *item = get_head();
     struct process_control_block *pcb = item->pcb;
 
@@ -144,12 +144,12 @@ void tty_write_handler(ExceptionStackFrame *frame){
     current_pcb->is_writing_to_terminal = terminal;
 
     if(num_written >= 0){
-        frame->regs[0] = num_written;
+        info->regs[0] = num_written;
     }else{
-        frame->regs[0] = ERROR;
+        info->regs[0] = ERROR;
     }
 }
-void clock_trap_handler (ExceptionStackFrame *frame){
+void clock_trap_handler (ExceptionInfo *info){
     time_till_switch--;
     decrement_delays();
     if(time_till_switch == 0){
@@ -157,17 +157,17 @@ void clock_trap_handler (ExceptionStackFrame *frame){
         schedule_processes();
     }
 }
-void illegal_trap_handler (ExceptionStackFrame *frame){
-    int code = frame->code;
+void illegal_trap_handler (ExceptionInfo *info){
+    int code = info->code;
     int current_pid = get_current_pid();
-    exit_handler(frame,1);
+    exit_handler(info,1);
 }
-void memory_trap_handler (ExceptionStackFrame *frame){
+void memory_trap_handler (ExceptionInfo *info){
     struct schedule_item *item = get_head();
     struct process_control_block *pcb = item->pcb;
 
-    int code = frame->code;
-    void *addr = frame->addr;
+    int code = info->code;
+    void *addr = info->addr;
     void *user_stack_limit = pcb->user_stack_limit;
     void *brk = pcb->brk;
 
@@ -193,16 +193,16 @@ void memory_trap_handler (ExceptionStackFrame *frame){
             break;
     }
 
-    exit_handler(frame, 1);
+    exit_handler(info, 1);
 }
-void math_trap_handler (ExceptionStackFrame *frame){
-    int code = frame->code;
+void math_trap_handler (ExceptionInfo *info){
+    int code = info->code;
     int current_pid = get_current_pid();
-    exit_handler(frame,1);
+    exit_handler(info,1);
 }
 
-void tty_recieve_trap_handler (ExceptionStackFrame *frame){
-    int terminal = frame->code;
+void tty_recieve_trap_handler (ExceptionInfo *info){
+    int terminal = info->code;
     char *receivedchars = malloc(sizeof(char) * TERMINAL_MAX_LINE);
 
     int num_received_chars = TtyReceive(terminal, receivedchars,TERMINAL_MAX_LINE);
@@ -213,8 +213,8 @@ void tty_recieve_trap_handler (ExceptionStackFrame *frame){
     }
 }
 
-void tty_transmit_trap_handler (ExceptionStackFrame *frame){
-    int terminal = frame->code;
+void tty_transmit_trap_handler (ExceptionInfo *info){
+    int terminal = info->code;
     struct process_control_block *done_writing_pcb = get_pcb_of_process_writing_to_terminal(terminal);
 
     if(done_writing_pcb != NULL){

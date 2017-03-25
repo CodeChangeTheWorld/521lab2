@@ -5,7 +5,7 @@
 #include "process_scheduling.h"
 #include "process_control_block.h"
 
-int LoadProgram(char *name, char **args,ExceptionStackName *frame, struct pte *page_table_to_load){
+int LoadProgram(char *name, char **args,ExceptionInfo *info, struct pte *page_table_to_load){
     int fd;
     int status;
     struct loadinfo li;
@@ -76,7 +76,7 @@ int LoadProgram(char *name, char **args,ExceptionStackName *frame, struct pte *p
         close(fd);
         return -1;
     }
-    frame->sp = (char*) cpp;
+    info->sp = (char*) cpp;
     for(i =0; i<PAGE_TABLE_LEN-KERNEL_STACK_PAGES;i++){
         if(page_table_to_load[i].valid == 1){
             free_phy_page(page_table_to_load[i].pfn);
@@ -113,7 +113,7 @@ int LoadProgram(char *name, char **args,ExceptionStackName *frame, struct pte *p
     WriteRegister(REG_TLB_FLUSH, TLB_FLUSH_0);
     memset((void *)(MEM_INVALID_SIZE+li.text_size+li.data_size),'\0', li.bss_size);
 
-    frame->pc = (void*)li.entry;
+    info->pc = (void*)li.entry;
 
     //copy arguments to new stack
     *cpp++ = (char*) argcount;
@@ -130,8 +130,8 @@ int LoadProgram(char *name, char **args,ExceptionStackName *frame, struct pte *p
     *cpp++ =0;
 
     for(i=0;i<NUM_REGS;i++){
-        frame->regs[i] = 0;
+        info->regs[i] = 0;
     }
-    frame->psr =0;
+    info->psr =0;
     return (0);
 }

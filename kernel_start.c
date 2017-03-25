@@ -13,7 +13,7 @@
 
 void **interrupt_table;
 int is_init = 1;
-void KernelStart(ExceptionStackFrame *frame, unsigned int pmem_size, void* orig_brk, char **cmd_args){
+void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void* orig_brk, char **cmd_args){
     TracePrintf(1,"Kernel Start, called %d pages.\n", pmem_size/PAGESIZE);
 
     //Occupy pages for kernel stack
@@ -74,15 +74,15 @@ void KernelStart(ExceptionStackFrame *frame, unsigned int pmem_size, void* orig_
 
     char *loadargs[1];
     loadargs[0] = NULL;
-    LoadProgram("idle",loadargs, frame, idle_pcb->page_table);
+    LoadProgram("idle",loadargs, info, idle_pcb->page_table);
 
     ContextSwitch(idle_and_init_initialization,&idle_pcb->saved_context , (void*)idle_pcb, (void*)init_pcb);
     if(is_init==1){
         is_init=0;
         if(cmd_args[0] == NULL){
-            LoadProgram("init",loadargs,frame,init_pcb->page_table);
+            LoadProgram("init",loadargs,info,init_pcb->page_table);
         }else{
-            LoadProgram(cmd_args[0],cmd_args,frame,init_pcb->page_table);
+            LoadProgram(cmd_args[0],cmd_args,info,init_pcb->page_table);
         }
         init_charbuffers();
     }

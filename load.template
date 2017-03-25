@@ -248,7 +248,7 @@ LoadProgram(char *name, char **args)
 	'\0', li.bss_size);
 
     /*
-     *  Set the entry point in the exception frame.
+     *  Set the entry point in the exception info.
      */
     >>>> Initialize pc for the current process to (void *)li.entry
 
