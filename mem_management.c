@@ -1,67 +1,56 @@
+#include "mem_management.h"
+#include "page_table_management.h"
+#include "process_scheduling.h"
+#include "process_control_block.h"
 
-int *is_page_occupied = NULL;
+int phy_page_num;
+int *phy_page_occupied = NULL;
 int vm_enabled = 0;
-int pagenum;
 
-void
-init_physical_mem_arr(pmem_size){
-    int pagenum= pmem_size/PAGESIZE;
-    is_page_occupied = malloc(pagenum* sizeof(int));
-    memset(is_page_occupied,0,pagenum);
+void init_pysical_pages(unsigned int pmem_size){
+    //initiate physical page number and an array to keep track of whether a page is occupied.
+    phy_page_num = pmem_size/PAGESIZE;
+    phy_page_occupied = malloc(phy_page_num* sizeof(int));
+    memset(phy_page_occupied,0,phy_page_num);
 }
 
-void
-occupy_pages(void *begin,void *end){
-    int beginpage = (long)DOWN_TO_PAGE(begin)/PAGESIZE;
-    int endpage = (long)UP_TO_PAGE(end)/PAGESIZE;
+void occupy_pages(void* lo , void* hi) {
+    int low = (long) DOWN_TO_PAGE(lo) / PAGESIZE;
+    int high = (long) UP_TO_PAGE(hi) / PAGESIZE;
 
-    for(int i=beginpage;i<endpage;i++){
-        is_page_occupied = 1;
+    for (int i = low; i < high; i++) {
+        phy_page_occupied[i] = 1;
     }
 }
 
-void
-brk_handler(ExceptionStackFrame *frame){
-    void *addr = (void *)frame->regs[1];
+unsigned int get_top_page(){
+    unsigned int toppage = DOWN_TO_PAGE(VMEM_1_LIMIT-1);
+    int toppn = toppage/PAGESIZE;
+    phy_page_occupied[toppn] =1;
+    return toppn;
+}
 
-    if(UP_TO_PAGE(addr)<=MEM_INVALID_SIZE){
-        frame->regs[0] = ERROR;
-        return;
-    }
-    struct schedule_item *item = get_head();
-    struct process_control_block *pcb = item->pcb;
-    void *brk = pcb->brk;
-    void *user_stack_limit = pcb->user_stack_limit;
-    struct pte *use_page_table = pcb->page_table;
 
-    if(UP_TO_PAGE(addr) >= DOWN_TO_PAGE(user_stack_limit) -1){
-        frame->regs[0] = ERROR;
-        return;
-    }
-
-    if(UP_TO_PAGE(addr)> UP_TO_PAGE(brk)){
-        int num_pages_required = ((long)UP_TO_PAGE(addr)-(long)UP_TO_PAGE(brk))/PAGESIZE;
-        if(num_free_physical_pages() < num_pages_required){
-            frame->regs[0] = ERROR;
-            return;
-        }else{
-            for(int i=0;i<num_pages_required; i++){
-                unsigned int physical_page_number = accquire_free_physical_page();
-                int vpn = (long)UP_TO_PAGE(brk)/PAGESIZE + i;
-                use_page_table[vpn].valid =1;
-                use_page_table[vpn].pfn = physical_page_number;
-            }
-        }
-    }else if(UP_TO_PAGE(addr) < UP_TO_PAGE(brk)){
-        //free memory
-        int num_pages_to_free = ((long)UP_TO_PAGE(brk)-(long)UP_TO_PAGE(addr))/PAGESIZE;
-        for(int i=0;i<num_pages_to_free;i++){
-            use_page_table[(long)UP_TO_PAGE(brk)/PAGESIZE -i].valid = 0;
-            int physical_page_number = user_page_table[(long)UP_TO_PAGE(brk)/PAGESIZE -i].pfn;
-            free_physical_page(physical_page_number);
+int num_free_pages(){
+    int count = 0;
+    for(int i=0;i<phy_page_num;i++){
+        if(phy_page_occupied[i]==0){
+            count++;
         }
     }
-    frame->regs[0] = 0;
-    pcb->brk = (void*)UP_TO_PAGE(addr);
+    return count;
+}
 
+void free_phy_page(unsigned int pfn){
+    phy_page_occupied[pfn] = 0;
+}
+
+int get_free_phy_page(){
+    for(int i=0;i<phy_page_num;i++){
+        if(phy_page_occupied[i] ==0){
+            phy_page_occupied[i] = 1;
+            return i;
+        }
+    }
+    Halt();
 }
