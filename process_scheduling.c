@@ -7,7 +7,10 @@
 #include "page_table_management.h"
 
 
+int can_idle_switch();
+int next_pid = BASE_PID;
 struct schedule_item *head = NULL;
+
 void add_to_schedule(struct process_control_block* pcb){
     struct schedule_item *item = malloc(sizeof(struct schedule_item));
     item->pcb = pcb;
