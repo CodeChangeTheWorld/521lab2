@@ -4,11 +4,12 @@
 struct pte *kernel_page_table;
 
 void build_kernel_page_table(){
+    int i;
     kernel_page_table = malloc(PAGE_TABLE_SIZE);
 
     int text_bound = ((long)&_etext - (long)VMEM_1_BASE)/PAGESIZE;
     int heap_bound = ((long)&kernel_brk - (long)VMEM_1_BASE)/PAGESIZE;
-    for(int i=0;i<PAGE_TABLE_LEN;i++){
+    for(i=0;i<PAGE_TABLE_LEN;i++){
         if(i < text_bound){
             kernel_page_table[i].valid = 1;
             kernel_page_table[i].kprot = PROT_READ | PROT_EXEC;
@@ -45,8 +46,8 @@ void add_first_record(){
 
 void init_idle_page_table(struct pte* page_table){
     TracePrint("page_table_management: user page table for idle process");
-
-    for(int i=0;i<PAGE_TABLE_LEN;i++){
+    int i;
+    for(i=0;i<PAGE_TABLE_LEN;i++){
         if(i >= KERNEL_STACK_BASE/PAGESIZE){
             page_table[i].valid = 1;
             page_table[i].kprot = PROT_READ | PROT_WRITE;
@@ -63,8 +64,8 @@ void init_idle_page_table(struct pte* page_table){
 }
 
 void init_new_page_table(struct pte* page_table){
-
-    for(int i=0;i<PAGE_TABLE_LEN;i++){
+    int i;
+    for(i=0;i<PAGE_TABLE_LEN;i++){
         if(i >= KERNEL_STACK_BASE/PAGESIZE){
             page_table[i].valid = 1;
             page_table[i].kprot = PROT_READ | PROT_WRITE;

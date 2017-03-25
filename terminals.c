@@ -4,7 +4,8 @@
 
 void init_charbuffers(){
     charbuffers = malloc(sizeof(struct charbuffer)* NUM_TERMINALS);
-    for(int i=0;i<NUM_TERMINALS; i++){
+    int i;
+    for(i=0;i<NUM_TERMINALS; i++){
         charbuffers[i].read =0;
         charbuffers[i].write =0;
     }

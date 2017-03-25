@@ -17,8 +17,8 @@ void init_pysical_pages(unsigned int pmem_size){
 void occupy_pages(void* lo , void* hi) {
     int low = (long) DOWN_TO_PAGE(lo) / PAGESIZE;
     int high = (long) UP_TO_PAGE(hi) / PAGESIZE;
-
-    for (int i = low; i < high; i++) {
+    int i;
+    for (i = low; i < high; i++) {
         phy_page_occupied[i] = 1;
     }
 }
@@ -33,7 +33,8 @@ unsigned int get_top_page(){
 
 int num_free_pages(){
     int count = 0;
-    for(int i=0;i<phy_page_num;i++){
+    int i;
+    for(i=0;i<phy_page_num;i++){
         if(phy_page_occupied[i]==0){
             count++;
         }
@@ -46,7 +47,8 @@ void free_phy_page(unsigned int pfn){
 }
 
 int get_free_phy_page(){
-    for(int i=0;i<phy_page_num;i++){
+    int i;
+    for(i=0;i<phy_page_num;i++){
         if(phy_page_occupied[i] ==0){
             phy_page_occupied[i] = 1;
             return i;

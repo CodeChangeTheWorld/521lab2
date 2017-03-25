@@ -15,14 +15,14 @@ void **interrupt_table;
 int is_init = 1;
 void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void* orig_brk, char **cmd_args){
     TracePrintf(1,"Kernel Start, called %d pages.\n", pmem_size/PAGESIZE);
-
+    int i;
     //Occupy pages for kernel stack
     init_pysical_pages(pmem_size);
     occupy_pages((void*)KERNEL_STACK_BASE, (void*)KERNEL_STACK_LIMIT);
 
     //build interupt table
     interrupt_table = malloc(TRAP_VECTOR_SIZE * sizeof(void*));
-    for(int i=0;i<TRAP_VECTOR_SIZE;i++){
+    for(i=0;i<TRAP_VECTOR_SIZE;i++){
         switch(i){
             case TRAP_KERNEL:
                 interrupt_table[i] = kernel_trap_handler;

@@ -46,7 +46,7 @@ int LoadProgram(char *name, char **args,ExceptionInfo *info, struct pte *page_ta
 
     //calculate total arg length
     size =0;
-    for(int i=0;args[i] !=NULL ;i++){
+    for(i=0;args[i] !=NULL ;i++){
         size+= strlen(args[i]) +1;
     }
     argcount = i;
