@@ -9,14 +9,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04e932b0-7474-4626-ab83-bbe3990694c0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/context_switch.c" afterPath="$PROJECT_DIR$/context_switch.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/context_switch.h" afterPath="$PROJECT_DIR$/context_switch.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kernel_start.c" afterPath="$PROJECT_DIR$/kernel_start.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mem_management.c" afterPath="$PROJECT_DIR$/mem_management.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mem_management.h" afterPath="$PROJECT_DIR$/mem_management.h" />
-    </list>
+    <list default="true" id="04e932b0-7474-4626-ab83-bbe3990694c0" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -41,17 +34,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="load_program.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="load_program.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/load_program.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="78" column="27" lean-forward="true" selection-start-line="78" selection-start-column="3" selection-end-line="78" selection-end-column="27" />
+            <state relative-caret-position="-67">
+              <caret line="94" column="74" lean-forward="true" selection-start-line="94" selection-start-column="74" selection-end-line="94" selection-end-column="74" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kernel_start.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="kernel_start.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kernel_start.c">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="563">
@@ -412,12 +405,12 @@
       <workItem from="1489889559105" duration="8489000" />
       <workItem from="1489924424806" duration="20013000" />
       <workItem from="1490308767996" duration="11624000" />
-      <workItem from="1490400472372" duration="23003000" />
+      <workItem from="1490400472372" duration="23221000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75986000" />
+    <option name="totallyTimeSpent" value="76204000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
@@ -695,14 +688,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/load_program.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="78" column="27" lean-forward="true" selection-start-line="78" selection-start-column="3" selection-end-line="78" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/context_switch.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -765,6 +750,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="563">
           <caret line="91" column="0" lean-forward="true" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/load_program.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-67">
+          <caret line="94" column="74" lean-forward="true" selection-start-line="94" selection-start-column="74" selection-end-line="94" selection-end-column="74" />
           <folding />
         </state>
       </provider>
