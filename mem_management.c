@@ -56,3 +56,21 @@ int get_free_phy_page(){
     }
     Halt();
 }
+
+void* vaddr_to_paddr(void *vm_addr){
+    void *vpage_base = (void*) DOWN_TO_PAGE(vm_addr);
+    void *ppage_base;
+    int vpn,pfn;
+
+    if(vpage_base >= (void*)VMEM_1_BASE){
+        vpn = ((long)(vpage_base - VMEM_1_BASE))/PAGESIZE;
+        pfn = kernel_page_table[vpn].pfn;
+    }else{
+        vpn = (long)vpage_base/PAGESIZE;
+        struct schedule_item *current = get_head();
+        pfn = current->pcb->page_table[vpn].pfn;
+    }
+    ppage_base = (void*)(long)(pfn*PAGESIZE);
+    long offset = (long)vm_addr&PAGEOFFSET;
+    return (void*)((long)ppage_base+offset);
+}

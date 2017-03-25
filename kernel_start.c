@@ -76,7 +76,8 @@ void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void* orig_brk, ch
     loadargs[0] = NULL;
     LoadProgram("idle",loadargs, info, idle_pcb->page_table);
 
-    ContextSwitch(idle_and_init_initialization,&idle_pcb->saved_context , (void*)idle_pcb, (void*)init_pcb);
+    ContextSwitch(idle_init_switch, &idle_pcb->saved_context , (void*)idle_pcb, (void*)init_pcb);
+
     if(is_init==1){
         is_init=0;
         if(cmd_args[0] == NULL){

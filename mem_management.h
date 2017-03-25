@@ -12,3 +12,4 @@ unsigned int get_top_page();
 int num_free_pages();
 void free_page(unsigned int pfn);
 int get_free_phy_page();
+void* vaddr_to_paddr(void *vm_addr);
