@@ -42,7 +42,7 @@ SavedContext * idle_init_switch(SavedContext *sct, void* p1, void* p2){
 
     WriteRegister(REG_PTR0, (RCS421RegVal)vaddr_to_paddr(pcb2->page_table));
     WriteRegister(REG_TLB_FLUSH,(RCS421RegVal)TLB_FLUSH_0);
-    return &pcb2->saved_context;
+    return &pcb1->saved_context;
 }
 
 SavedContext *MyContextSwitch(SavedContext *ctxp, void *p1, void *p2){
