@@ -130,7 +130,7 @@ void free_page_table(struct pte *page_table){
 int num_pages_in_use(struct pte* page_table){
     int i;
     int count =0;
-    for(int i=0;i<PAGE_TABLE_LEN- KERNEL_STACK_PAGES;i++){
+    for(i=0;i<PAGE_TABLE_LEN- KERNEL_STACK_PAGES;i++){
         if(page_table[i].valid == 1){
             count++;
         }
