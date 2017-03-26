@@ -72,7 +72,7 @@ void fork_trap_handler(ExceptionInfo *info){
     struct process_control_block *child_pcb = create_new_process(child_pid , get_current_pid());
 
     TracePrintf(3, "%p\n", child_pcb->page_table);
-    ContextSwitch(child_process_region_0_initialization, &parent_pcb->saved_context,(void*)parent_pcb,(void*) child_pcb);
+    ContextSwitch(init_region_0_for_child, &parent_pcb->saved_context,(void*)parent_pcb,(void*) child_pcb);
 
     if(parent_pcb->out_of_memory){
         struct schedule_item *current = get_head();
