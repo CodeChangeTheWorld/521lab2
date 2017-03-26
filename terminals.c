@@ -22,7 +22,6 @@ int new_line_in_buffer(int terminal){
     int i;
     int buffer_index = charbuffers[terminal].read;
     for(i=0;i<charbuffers[terminal].count;i++){
-        TracePrintf();
         if(charbuffers[terminal].buffer[buffer_index] == '\n'){
             return 1;
         }
