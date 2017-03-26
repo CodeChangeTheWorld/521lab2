@@ -82,7 +82,7 @@ int write_to_buffer(int terminal, char *buf, int len){
         schedule_processes();
     }
     int num_written = 0;
-    for(int i=0;i<len;i++){
+    for(i=0;i<len;i++){
         if(charbuffers[terminal].count != TERMINAL_MAX_LINE){ // drop characters if buffer is full
             charbuffers[terminal].buffer[charbuffers[terminal].write] = buf[i];
             charbuffers[terminal].write = (charbuffers[terminal].write+1) % TERMINAL_MAX_LINE;
