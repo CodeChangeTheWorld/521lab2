@@ -77,7 +77,7 @@ void decapitate(){
         TracePrintf(0, "process_scheduling: decapitate when there is no process. ");
         Halt();
     }
-    struct process_control_block *current_pcb = current_pcb;
+    struct process_control_block *current_pcb = current->pcb;
     if(current_pcb->pid == IDLE_PID){
         TracePrintf(0, "process_scheduling: decapitate IDLE process. ");
         Halt();
