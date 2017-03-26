@@ -18,4 +18,4 @@ void* vaddr_to_paddr(void *vm_addr);
 void brk_handler(ExceptionInfo *info);
 void occupy_pages_to(void* to);
 int SetKernelBrk(void *addr);
-void grow_user_stack(void *addr, struct process_control_block *pcb);
+void grow_user_stack(void *addr, void *pcb_raw);
