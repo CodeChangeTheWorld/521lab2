@@ -10,7 +10,6 @@ extern void *kernel_brk;
 
 void init_pysical_pages(unsigned int);
 void occupy_pages(void* lo , void* hi);
-void build_kernel_page_table();
 unsigned int get_top_page();
 int num_free_pages();
 void free_phy_page(unsigned int pfn);
@@ -19,3 +18,4 @@ void* vaddr_to_paddr(void *vm_addr);
 void brk_handler(ExceptionInfo *info);
 void occupy_pages_to(void* to);
 int SetKernelBrk(void *addr);
+void grow_user_stack(void *addr, struct process_control_block *pcb);

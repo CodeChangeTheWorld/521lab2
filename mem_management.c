@@ -152,3 +152,15 @@ void brk_handler(ExceptionInfo *info){
     info->regs[0] =0;
     pcb->brk = (void*)UP_TO_PAGE(addr);
 }
+
+void grow_user_stack(void *addr, struct process_control_block *pcb){
+    int i;
+    int num_pages_required = (DOWN_TO_PAGE(pcb->user_stack_limit) -DOWN_TO_PAGE(addr))/PAGESIZE;
+    for(i=0;i<num_pages_required;i++){
+        unsigned int pfn = get_free_phy_page();
+        int vpn = (long)DOWN_TO_PAGE(pcb->user_stack_limit)/PAGESIZE - i -1;
+        pcb->page_table[vpn].valid = 1;
+        pcb->page_table[vpn].pfn = pfn;
+    }
+    pcb->user_stack_limit = (void*)DOWN_TO_PAGE(addr);
+}

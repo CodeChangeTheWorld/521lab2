@@ -7,7 +7,7 @@ struct page_table_record *first_page_table_record;
 struct page_table_record * get_first_page_table_record(){
     return first_page_table_record;
 }
-void build_kernel_page_table(){
+void init_kernel_page_table(){
     int i;
     kernel_page_table = malloc(PAGE_TABLE_SIZE);
 
@@ -102,4 +102,39 @@ struct pte* create_page_table(){
     return create_page_table();
 }
 
+void free_page_table(struct pte *page_table){
+
+   void *page_base = (void*)DOWN_TO_PAGE(page_table);
+   struct page_table_record *current = get_first_page_table_record();
+
+    //all table record in a pagetable have the same page base.
+   while(current!=NULL){
+       if(current->page_base == page_base) {
+           if((void*)page_table==page_base){
+                current->is_bottom_full = 0;
+           }else{
+                current->is_top_full = 0;
+           }
+           if(current->is_top_full && current->is_bottom_full && current->next == NULL){
+               free_phy_page((long)page_base/PAGESIZE);
+               free(current);
+           }
+           return;
+       }
+       current=current->next;
+   }
+   TracePrintf(0,"page_table_management: free_page_table was called on a page table that is not in a page table record!");
+   Halt();
+}
+
+int num_pages_in_use(struct pte* page_table){
+    int i;
+    int count =0;
+    for(int i=0;i<PAGE_TABLE_LEN- KERNEL_STACK_PAGES;i++){
+        if(page_table[i].valid == 1){
+            count++;
+        }
+    }
+    return count;
+}
 

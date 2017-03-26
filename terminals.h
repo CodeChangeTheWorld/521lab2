@@ -14,3 +14,6 @@ struct charbuffer {
 struct charbuffer *charbuffers;
 
 void init_charbuffers();
+int read_from_buffer(int terminal, char *buf, int len);
+int write_to_buffer_raw(int terminal, char *buf, int len);
+int write_to_buffer(int terminal, char *buf, int len);

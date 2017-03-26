@@ -13,7 +13,8 @@
 
 void **interrupt_table;
 int is_init = 1;
-void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void* orig_brk, char **cmd_args){
+
+void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void *orig_brk, char **cmd_args) {
     TracePrintf(1,"Kernel Start, called %d pages.\n", pmem_size/PAGESIZE);
     int i;
     //Occupy pages for kernel stack
@@ -55,10 +56,10 @@ void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void* orig_brk, ch
     WriteRegister(REG_VECTOR_BASE, (RCS421RegVal)interrupt_table);
 
     //kernel page table
-    build_kernel_page_table();
+    init_kernel_page_table();
     add_first_record();
 
-    TracePrintf(2,"kernel_start: added first page table kernel");
+    TracePrintf(1,"kernel_start: added first page table kernel");
 
     //Initiate user page table, needs to build process
     struct process_control_block *idle_pcb=create_idle_process();
