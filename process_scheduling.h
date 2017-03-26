@@ -16,7 +16,7 @@ struct schedule_item{
 int get_current_pid();
 int get_next_pid();
 void move_head_to_tail();
-void
+//void
 
 void add_to_schedule(struct process_control_block* pcb);
 struct schedule_item * get_head();
