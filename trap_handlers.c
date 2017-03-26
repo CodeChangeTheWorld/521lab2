@@ -119,7 +119,7 @@ void wait_trap_handler(ExceptionInfo *info){
 
 }
 void getpid_handler(ExceptionInfo *info){
-    info->reg[0] = get_current_pid();
+    info->regs[0] = get_current_pid();
 }
 
 void delay_handler(ExceptionInfo *info){
@@ -141,7 +141,7 @@ void delay_handler(ExceptionInfo *info){
 
 void tty_read_handler(ExceptionInfo *info){
     int terminal = info->regs[1];
-    if(terminal < 0 || terminal > MIN_TERMINALS){
+    if(terminal < 0 || terminal > NUM_TERMINALS){
         info->regs[0] = ERROR;
         return;
     }
@@ -229,14 +229,14 @@ void memory_trap_handler (ExceptionInfo *info){
             break;
     }
 
-    exit_handler(frame,1);
+    exit_handler(info,1);
 }
 void math_trap_handler (ExceptionInfo *info){
     TracePrintf(1,"trap_handlers: Entering TRAP_MATH interrupt handler\n");
     int code = info->code;
     int current_pid = get_current_pid();
     printf("trap_handlers: Terminating current process of pid %d due to TRAP_MATH of code %d",current_pid,code);
-    exit_handler(frame, 1);
+    exit_handler(info, 1);
 }
 
 void tty_recieve_trap_handler (ExceptionInfo *info){
