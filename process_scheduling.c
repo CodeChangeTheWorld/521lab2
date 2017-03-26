@@ -98,7 +98,7 @@ void schedule_process_during_decap(){
     struct schedule_item *next_head = get_head();
     struct process_control_block *next_pcb = next_head->pcb;
 
-    ContextSwitch(MyContextSwitch, &current_pcb->saved_context,(void*)old_head_pcb, (void*)next_pcb);
+    ContextSwitch(MyContextSwitch, &old_head_pcb->saved_context,(void*)old_head_pcb, (void*)next_pcb);
     reset_time_till_switch();
 }
 
@@ -189,8 +189,8 @@ void wake_up_a_reader_for_terminal(int terminal){
 
     while(current != NULL){
         struct process_control_block *pcb= current->pcb;
-        if(pcb->is_waiting_to_read_to_terminal == terminal){
-            pcb->is_waiting_to_read_to_terminal = -1;
+        if(pcb->is_waiting_to_read_from_terminal == terminal){
+            pcb->is_waiting_to_read_from_terminal = -1;
             return;
         }
         current = current->next;
