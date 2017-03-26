@@ -107,7 +107,7 @@ void exit_handler(ExceptionInfo *info,int error){
         exit_status = info->regs[1];
     }
     struct  schedule_item *current = get_head();
-    TracePrintf(3,"trap_handlers: parent: %d\n", parent_pcb->pid);
+    //TracePrintf(3,"trap_handlers: parent: %d\n", parent_pcb->pid);
     if(!is_current_process_orphan()){
         int parent_pcb = get_pcb_by_pid(current->pcb->parent_pid);
         parent_pcb->is_waiting = 0;
