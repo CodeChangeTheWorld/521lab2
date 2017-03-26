@@ -66,13 +66,13 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
     int num_user_pages = (VMEM_0_LIMIT-VMEM_0_BASE)/PAGESIZE;
     int pages_to_copy = 0;
-    for(int i=0;i<num_user_pages;i++){
+    for(i=0;i<num_user_pages;i++){
         if(parent_page_table[i].valid == 1){
             pages_to_copy++;
         }
     }
 
-    for(int i= MEM_INVALID_PAGES; i< (parent_pcb->user_stack_limit - (void*)PAGESIZE)/PAGESIZE;i++){
+    for(i= MEM_INVALID_PAGES; i< (parent_pcb->user_stack_limit - (void*)PAGESIZE)/PAGESIZE;i++){
         if(parent_page_table[i].valid == 0){
             first_invalid_page = i;
         }
@@ -85,7 +85,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
     //copy region 0 of parent to temp
     if(first_invalid_page!=-1){
-        for(int i = MEM_INVALID_PAGES;i<num_user_pages;i++){
+        for(i = MEM_INVALID_PAGES;i<num_user_pages;i++){
             if(parent_page_table[i].valid == 1){
                 unsigned int child_phy_page_num = get_free_phy_page();
 
@@ -125,7 +125,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
             parent_pcb->out_of_memory = 1;
             return &parent_pcb->saved_context;
         }else{
-            for(int i=MEM_INVALID_PAGES;i<num_user_pages;i++){
+            for(i=MEM_INVALID_PAGES;i<num_user_pages;i++){
                 if(parent_page_table[i].valid ==  1){
                     unsigned int child_phy_page_num = get_free_phy_page();
 
