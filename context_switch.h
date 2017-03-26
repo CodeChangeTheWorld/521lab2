@@ -6,4 +6,4 @@
 
 SavedContext * idle_init_switch(SavedContext *ctxp, void *p1, void *p2);
 SavedContext * MyContextSwitch(SavedContext *ctxp, void *p1, void *p2);
-SavedContext * init_region_for_child(SavedContext *ctxp, void *p1, void *p2);
+SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2);
