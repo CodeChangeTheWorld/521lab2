@@ -13,6 +13,7 @@ void init_kernel_page_table(){
 
     int text_bound = ((long)&_etext - (long)VMEM_1_BASE)/PAGESIZE;
     int heap_bound = ((long)&kernel_brk - (long)VMEM_1_BASE)/PAGESIZE;
+
     for(i=0;i<PAGE_TABLE_LEN;i++){
         if(i < text_bound){
             kernel_page_table[i].valid = 1;
@@ -21,7 +22,7 @@ void init_kernel_page_table(){
             kernel_page_table[i].valid = 1;
             kernel_page_table[i].kprot = PROT_READ | PROT_WRITE;
         }else{
-            kernel_page_table[i].valid = 1;
+            kernel_page_table[i].valid = 0;
             kernel_page_table[i].kprot = PROT_READ | PROT_WRITE;
         }
         kernel_page_table[i].uprot = PROT_NONE;
