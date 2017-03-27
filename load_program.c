@@ -1,6 +1,6 @@
 #include "load_program.h"
 
-#include "memory_management.h"
+#include "mem_management.h"
 #include "page_table_management.h"
 #include "process_scheduling.h"
 #include "process_control_block.h"
@@ -140,7 +140,7 @@ LoadProgram(char *name, char **args, ExceptionInfo *frame, struct pte *page_tabl
      *  allocated to this process that will be freed.
      */
 
-    int required_free_physical_pages = text_npg + data_bss_npg + stack_npg - num_pages_in_use(page_table_to_load);
+    int required_free_physical_pages = text_npg + data_bss_npg + stack_npg -  num_pages_in_use(page_table_to_load);
 
     if (num_free_physical_pages() < required_free_physical_pages) {
         TracePrintf(0, "LoadProgram: program '%s' size too large for physical memory\n", name);
@@ -186,12 +186,12 @@ LoadProgram(char *name, char **args, ExceptionInfo *frame, struct pte *page_tabl
             page_table_to_load[i + MEM_INVALID_PAGES].valid = 1;
             page_table_to_load[i + MEM_INVALID_PAGES].kprot = PROT_READ | PROT_WRITE;
             page_table_to_load[i + MEM_INVALID_PAGES].uprot = PROT_READ | PROT_EXEC;
-            page_table_to_load[i + MEM_INVALID_PAGES].pfn = acquire_free_physical_page();
+            page_table_to_load[i + MEM_INVALID_PAGES].pfn = get_free_phy_page();
         } else if( i < data_bss_npg + text_npg){
             page_table_to_load[i + MEM_INVALID_PAGES].valid = 1;
             page_table_to_load[i + MEM_INVALID_PAGES].kprot = PROT_READ | PROT_WRITE;
             page_table_to_load[i + MEM_INVALID_PAGES].uprot = PROT_READ | PROT_WRITE;
-            page_table_to_load[i + MEM_INVALID_PAGES].pfn = acquire_free_physical_page();
+            page_table_to_load[i + MEM_INVALID_PAGES].pfn = get_free_phy_page();
         }
     }
 
@@ -209,7 +209,7 @@ LoadProgram(char *name, char **args, ExceptionInfo *frame, struct pte *page_tabl
         page_table_to_load[i].valid = 1;
         page_table_to_load[i].kprot = PROT_READ | PROT_WRITE;
         page_table_to_load[i].uprot = PROT_READ | PROT_WRITE;
-        page_table_to_load[i].pfn = acquire_free_physical_page();
+        page_table_to_load[i].pfn = get_free_phy_page();
     }
 
     //initialize the user_stack_limit
