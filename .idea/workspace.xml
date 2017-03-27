@@ -93,8 +93,8 @@
       <file leaf-file-name="load_program.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/load_program.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="276" column="31" lean-forward="true" selection-start-line="276" selection-start-column="31" selection-end-line="276" selection-end-column="31" />
+            <state relative-caret-position="1515">
+              <caret line="154" column="13" lean-forward="false" selection-start-line="154" selection-start-column="13" selection-end-line="154" selection-end-column="13" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -136,7 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>frame</find>
       <find>can_idle_switch</find>
       <find>schedule_processes_during_dec</find>
       <find>read_from_buffer</find>
@@ -166,6 +165,7 @@
       <find>current_pcb</find>
       <find>init_page_table</find>
       <find>free_physical_page</find>
+      <find>argcount</find>
     </findStrings>
     <replaceStrings>
       <replace>info</replace>
@@ -568,12 +568,12 @@
       <workItem from="1490308767996" duration="11624000" />
       <workItem from="1490400472372" duration="43141000" />
       <workItem from="1490492856127" duration="1426000" />
-      <workItem from="1490534815762" duration="36079000" />
+      <workItem from="1490534815762" duration="41372000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133629000" />
+    <option name="totallyTimeSpent" value="138922000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -895,8 +895,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/load_program.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="276" column="31" lean-forward="true" selection-start-line="276" selection-start-column="31" selection-end-line="276" selection-end-column="31" />
+        <state relative-caret-position="1515">
+          <caret line="154" column="13" lean-forward="false" selection-start-line="154" selection-start-column="13" selection-end-line="154" selection-end-column="13" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
