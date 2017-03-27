@@ -10,6 +10,18 @@
 int can_idle_switch();
 int next_pid = BASE_PID;
 struct schedule_item *head = NULL;
+
+void decrement_delays(){
+    struct schedule_item *current = head;
+    while(current != NULL){
+        struct process_control_block *pcb = current->pcb;
+        if(pcb->delay > 0){
+            pcb->delay--;
+        }
+        current = current->next;
+    }
+}
+
 int
 get_current_pid(){
     struct schedule_item *item = get_head();
