@@ -142,7 +142,7 @@ LoadProgram(char *name, char **args, ExceptionInfo *frame, struct pte *page_tabl
 
     int required_free_physical_pages = text_npg + data_bss_npg + stack_npg -  num_pages_in_use(page_table_to_load);
 
-    if (num_free_physical_pages() < required_free_physical_pages) {
+    if (num_free_pages() < required_free_physical_pages) {
         TracePrintf(0, "LoadProgram: program '%s' size too large for physical memory\n", name);
         free(argbuf);
         close(fd);
@@ -163,7 +163,7 @@ LoadProgram(char *name, char **args, ExceptionInfo *frame, struct pte *page_tabl
     for(i = 0; i < PAGE_TABLE_LEN - KERNEL_STACK_PAGES; i++) {
         if(page_table_to_load[i].valid == 1){
             //free physical memory and set as invalid
-            free_physical_page(page_table_to_load[i].pfn);
+            free_phy_page(page_table_to_load[i].pfn);
             page_table_to_load[i].valid = 0;
         }
     }
