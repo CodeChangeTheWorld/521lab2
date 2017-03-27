@@ -49,19 +49,19 @@ LoadProgram(char *name, char **args, ExceptionInfo *info, struct pte *page_table
             return (-1);
     }
     size = 0;
-    for(int i=0; args[i] !=NULL; i++){
+    for(i=0; args[i] !=NULL; i++){
         size+= strlen(args[i] +1 );
     }
     argcount = i;
     cp = argbuf = (char*)malloc(size);
 
     for(i=0;i<args[i]!=NULL;i++){
-        strcpy(cp, arg[i]);
+        strcpy(cp, args[i]);
         cp+= strlen(cp)+1;
     }
 
     cp = ((char*)USER_STACK_LIMIT)-size;
-    cpp = ((char**)(unsigned long)cp & (-1 << 4));
+    cpp = (char**)((unsigned long)cp & (-1 << 4));
     cpp = ((char**)(unsigned long)cpp - ((argcount + 4)* sizeof(void*)));
 
     text_npg = li.text_size >> PAGESHIFT;
@@ -118,7 +118,7 @@ LoadProgram(char *name, char **args, ExceptionInfo *info, struct pte *page_table
     }
 
     pcb->user_stack_limit = (void*)DOWN_TO_PAGE(USER_STACK_LIMIT);
-    WriteRegister(REG_TLB_FLUSH, TLB_FLUSH_O);
+    WriteRegister(REG_TLB_FLUSH, TLB_FLUSH_0);
 
     if(read(fd, (void*)MEM_INVALID_SIZE,li.text_size + li.data_size) != li.text_size + li.data_size){
         free(argbuf);
