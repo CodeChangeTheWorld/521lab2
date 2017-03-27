@@ -10,7 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e932b0-7474-4626-ab83-bbe3990694c0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/load_program.c" afterPath="$PROJECT_DIR$/load_program.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/page_table_management.c" afterPath="$PROJECT_DIR$/page_table_management.c" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,8 +29,8 @@
       <file leaf-file-name="page_table_management.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/page_table_management.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="642">
-              <caret line="157" column="37" lean-forward="true" selection-start-line="157" selection-start-column="37" selection-end-line="157" selection-end-column="37" />
+            <state relative-caret-position="252">
+              <caret line="141" column="0" lean-forward="false" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="43" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -50,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="page_table_management.h" pinned="false" current-in-tab="false">
+      <file leaf-file-name="page_table_management.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/page_table_management.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
-              <caret line="20" column="44" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
+              <caret line="20" column="42" lean-forward="true" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -90,10 +90,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="load_program.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="load_program.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/load_program.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
+            <state relative-caret-position="0">
               <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
               <folding />
             </state>
@@ -201,9 +201,9 @@
         <option value="$PROJECT_DIR$/mem_management.c" />
         <option value="$PROJECT_DIR$/context_switch.c" />
         <option value="$PROJECT_DIR$/kernel_start.c" />
-        <option value="$PROJECT_DIR$/page_table_management.h" />
-        <option value="$PROJECT_DIR$/page_table_management.c" />
         <option value="$PROJECT_DIR$/load_program.c" />
+        <option value="$PROJECT_DIR$/page_table_management.c" />
+        <option value="$PROJECT_DIR$/page_table_management.h" />
       </list>
     </option>
   </component>
@@ -566,12 +566,12 @@
       <workItem from="1490308767996" duration="11624000" />
       <workItem from="1490400472372" duration="43141000" />
       <workItem from="1490492856127" duration="1426000" />
-      <workItem from="1490534815762" duration="35850000" />
+      <workItem from="1490534815762" duration="35942000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133400000" />
+    <option name="totallyTimeSpent" value="133492000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -865,24 +865,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/page_table_management.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="44" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/page_table_management.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="642">
-          <caret line="157" column="37" lean-forward="true" selection-start-line="157" selection-start-column="37" selection-end-line="157" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/load_program.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -893,8 +875,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/load_program.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
+        <state relative-caret-position="0">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/page_table_management.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="141" column="0" lean-forward="false" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/page_table_management.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="42" lean-forward="true" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
           <folding />
         </state>
       </provider>

@@ -100,7 +100,7 @@ struct pte* create_page_table(){
             current= current->next;
         }
     }
-    return create_page_table_record();
+    return create_new_page_table_record();
 }
 
 void free_page_table(struct pte *page_table){
