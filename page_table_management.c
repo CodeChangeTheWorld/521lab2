@@ -7,29 +7,30 @@ struct page_table_record *first_page_table_record;
 struct page_table_record * get_first_page_table_record(){
     return first_page_table_record;
 }
-void init_kernel_page_table(){
+//Kernel Page Table initialzation
+void
+init_kernel_page_table(){
     int i;
     kernel_page_table = malloc(PAGE_TABLE_SIZE);
 
-    int text_bound = ((long)&_etext - (long)VMEM_1_BASE)/PAGESIZE;
-    int heap_bound = ((long)&kernel_brk - (long)VMEM_1_BASE)/PAGESIZE;
+    int end_of_text = ((long)&_etext - (long)VMEM_1_BASE) / PAGESIZE;
+    int end_of_heap = ((long)kernel_brk - (long)VMEM_1_BASE) / PAGESIZE;
 
-    for(i=0;i<PAGE_TABLE_LEN;i++){
-        if(i < text_bound){
+    for(i = 0; i < PAGE_TABLE_LEN; i++){
+        if(i < end_of_text){
             kernel_page_table[i].valid = 1;
             kernel_page_table[i].kprot = PROT_READ | PROT_EXEC;
-        }else if(i< heap_bound ){
+        } else if(i <= end_of_heap) {
             kernel_page_table[i].valid = 1;
             kernel_page_table[i].kprot = PROT_READ | PROT_WRITE;
-        }else{
+        } else {
             kernel_page_table[i].valid = 0;
             kernel_page_table[i].kprot = PROT_READ | PROT_WRITE;
         }
         kernel_page_table[i].uprot = PROT_NONE;
-        kernel_page_table[i].pfn = i+ (long)VMEM_1_BASE/PAGESIZE;
+        kernel_page_table[i].pfn = i + (long)VMEM_1_BASE/PAGESIZE;
     }
-
-    TracePrintf(2, "page_table_management: kernel page build.");
+    TracePrintf(2, "page_table_management: Kernel page table initialized.\n");
 }
 
 void add_first_record(){
