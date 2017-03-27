@@ -4,8 +4,8 @@
 #include "page_table_management.h"
 
 SavedContext * idle_init_switch(SavedContext *sct, void* p1, void* p2){
-    int i;
-    int j;
+    int i=0;
+    int j=0;
     struct process_control_block *pcb1 = (struct process_control_block*)p1;
     struct process_control_block *pcb2 = (struct process_control_block*)p2;
 
@@ -42,6 +42,7 @@ SavedContext * idle_init_switch(SavedContext *sct, void* p1, void* p2){
 
     WriteRegister(REG_PTR0, (RCS421RegVal)vaddr_to_paddr(pcb2->page_table));
     WriteRegister(REG_TLB_FLUSH,(RCS421RegVal)TLB_FLUSH_0);
+    TracePrintf(1, "context_switch: end kernel stack copy.\n");
     return &pcb1->saved_context;
 }
 

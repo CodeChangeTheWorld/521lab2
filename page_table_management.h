@@ -18,3 +18,4 @@ void init_initial_page_table(struct pte* page_table);
 struct pte *create_page_table();
 void free_page_table(struct pte *page_table);
 int num_pages_in_use(struct pte* page_table);
+struct pte * create_new_page_table_record();
