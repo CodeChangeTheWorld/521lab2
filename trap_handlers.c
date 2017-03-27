@@ -76,7 +76,7 @@ void fork_trap_handler(ExceptionInfo *info){
 
     if(parent_pcb->out_of_memory){
         struct schedule_item *current = get_head();
-        remove_head_of_schedule();
+        remove_head();
         info->regs[0] = ERROR;
     }else{
         if(get_current_pid()==child_pid){
