@@ -67,18 +67,19 @@ void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void *orig_brk, ch
     WriteRegister(REG_PTR0, (RCS421RegVal)idle_pcb->page_table);
     WriteRegister(REG_PTR1, (RCS421RegVal)kernel_page_table);
 
-    TracePrintf(2, "kernel_start: Kernel and user page table pointers set.\n");
+    TracePrintf(0, "kernel_start: Kernel and user page table pointers set.\n");
 
     WriteRegister(REG_VM_ENABLE, 1);
     vm_enabled = 1;
 
     //page table record can only be made after vm enabled.
+    TracePrintf(0, "kernel_start: Create new process.\n");
     struct process_control_block *init_pcb=create_new_process(INIT_PID, ORPHAN_PARENT_PID);
 
     char *loadargs[1];
     loadargs[0] = NULL;
     LoadProgram("idle",loadargs, info, idle_pcb->page_table);
-
+    TracePrintf(0, "kernel_start: load idle process.\n");
     ContextSwitch(idle_init_switch, &idle_pcb->saved_context , (void*)idle_pcb, (void*)init_pcb);
 
     if(is_init==1){

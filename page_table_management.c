@@ -28,6 +28,7 @@ void init_kernel_page_table(){
         kernel_page_table[i].uprot = PROT_NONE;
         kernel_page_table[i].pfn = i+ (long)VMEM_1_BASE/PAGESIZE;
     }
+
     TracePrintf(2, "page_table_management: kernel page build.");
 }
 
