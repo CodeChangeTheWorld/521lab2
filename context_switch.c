@@ -61,7 +61,7 @@ SavedContext *MyContextSwitch(SavedContext *ctxp, void *p1, void *p2){
 
 SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
-    TracePrintf(3, "context_switch: Starting child_process_region_0_initialization()\n");
+    TracePrintf(0, "context_switch: Starting child_process_region_0_initialization()\n");
 
     int i =0;
     int first_invalid_page = -1;
@@ -151,13 +151,26 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
                             PAGESIZE
                     );
 
-                    kernel_page_table[first_invalid_page_region_1].valid = 0;
+                    parent_page_table[first_invalid_page_region_1].valid = 0;
                     WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
 
                     child_page_table[i].valid=1;
                     child_page_table[i].pfn=child_phy_page_num;
                 }
             }
+        }
+    }
+
+    TracePrintf(3, "context_switch: VALID PTE'S:\n");
+    for (i = 0; i < VMEM_0_LIMIT/PAGESIZE; i++) {
+        if(child_page_table[i].valid == 1){
+            TracePrintf(3, "context_switch: %d, %d \n", i, child_page_table[i].valid);
+        }
+    }
+
+    for (i = 0; i < VMEM_0_LIMIT/PAGESIZE; i++) {
+        if(child_page_table[i].valid == 1){
+            TracePrintf(3, "context_switch: %d, %d \n", i, parent_page_table[i].valid);
         }
     }
 
