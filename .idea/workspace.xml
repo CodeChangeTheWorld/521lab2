@@ -10,8 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e932b0-7474-4626-ab83-bbe3990694c0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/page_table_management.c" afterPath="$PROJECT_DIR$/page_table_management.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/page_table_management.h" afterPath="$PROJECT_DIR$/page_table_management.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/process_control_block.c" afterPath="$PROJECT_DIR$/process_control_block.c" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -31,7 +29,7 @@
       <file leaf-file-name="page_table_management.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/page_table_management.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
+            <state relative-caret-position="465">
               <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
@@ -62,7 +60,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="page_table_management.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="page_table_management.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/page_table_management.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
@@ -112,11 +110,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="process_control_block.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="process_control_block.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/process_control_block.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+            <state relative-caret-position="210">
+              <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -203,9 +201,9 @@
         <option value="$PROJECT_DIR$/trap_handlers.c" />
         <option value="$PROJECT_DIR$/process_scheduling.c" />
         <option value="$PROJECT_DIR$/context_switch.c" />
-        <option value="$PROJECT_DIR$/process_control_block.c" />
         <option value="$PROJECT_DIR$/page_table_management.h" />
         <option value="$PROJECT_DIR$/page_table_management.c" />
+        <option value="$PROJECT_DIR$/process_control_block.c" />
       </list>
     </option>
   </component>
@@ -554,12 +552,12 @@
       <workItem from="1490308767996" duration="11624000" />
       <workItem from="1490400472372" duration="43141000" />
       <workItem from="1490492856127" duration="1426000" />
-      <workItem from="1490534815762" duration="29073000" />
+      <workItem from="1490534815762" duration="29146000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126623000" />
+    <option name="totallyTimeSpent" value="126696000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -835,14 +833,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/process_control_block.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mem_management.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -867,9 +857,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/page_table_management.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/page_table_management.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
+        <state relative-caret-position="465">
           <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
@@ -877,10 +875,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/page_table_management.h">
+    <entry file="file://$PROJECT_DIR$/process_control_block.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="36" />
+        <state relative-caret-position="210">
+          <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
           <folding />
         </state>
       </provider>

@@ -12,7 +12,7 @@ void add_child_exit_status(struct process_control_block *parent_pcb, int exit_st
     new_exit_status_node->pid = child_pid;
     new_exit_status_node->next = NULL;
     if(current == NULL){
-        parent_pcb->next_status_queue = new_exit_status_node;
+        parent_pcb->exit_status_queue = new_exit_status_node;
     }else{
         while(current->next != NULL){
             current = current->next;
