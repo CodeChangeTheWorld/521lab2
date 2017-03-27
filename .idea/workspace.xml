@@ -10,7 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e932b0-7474-4626-ab83-bbe3990694c0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/page_table_management.c" afterPath="$PROJECT_DIR$/page_table_management.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/load_program.c" afterPath="$PROJECT_DIR$/load_program.c" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -80,41 +80,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mem_management.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mem_management.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="33" column="10" lean-forward="false" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="load_program.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/load_program.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-750">
-              <caret line="24" column="39" lean-forward="true" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
+            <state relative-caret-position="612">
+              <caret line="298" column="0" lean-forward="true" selection-start-line="298" selection-start-column="0" selection-end-line="298" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="process_control_block.c" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/process_control_block.c">
+      <file leaf-file-name="load_program.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/load_program.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="90" lean-forward="true" selection-start-line="24" selection-start-column="90" selection-end-line="24" selection-end-column="90" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Makefile">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-250">
-              <caret line="28" column="1" lean-forward="false" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+            <state relative-caret-position="135">
+              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -158,12 +138,12 @@
       <find>remove_head_</find>
       <find>remove</find>
       <find>add_child_exit_status</find>
-      <find>test</find>
       <find>init_pysical_pages</find>
-      <find>init_ker</find>
       <find>init_kernel_page_table</find>
       <find>current_pcb</find>
       <find>Kernel   LoadInfo:</find>
+      <find>init_ker</find>
+      <find>test</find>
     </findStrings>
     <replaceStrings>
       <replace>info</replace>
@@ -187,7 +167,6 @@
         <option value="$PROJECT_DIR$/trap_handlers.h" />
         <option value="$PROJECT_DIR$/include/hardware.h" />
         <option value="$PROJECT_DIR$/load_program.h" />
-        <option value="$PROJECT_DIR$/load_program.c" />
         <option value="$PROJECT_DIR$/init.c" />
         <option value="$PROJECT_DIR$/terminals.h" />
         <option value="$PROJECT_DIR$/process_scheduling.h" />
@@ -204,6 +183,7 @@
         <option value="$PROJECT_DIR$/kernel_start.c" />
         <option value="$PROJECT_DIR$/mem_management.c" />
         <option value="$PROJECT_DIR$/page_table_management.c" />
+        <option value="$PROJECT_DIR$/load_program.c" />
       </list>
     </option>
   </component>
@@ -566,12 +546,12 @@
       <workItem from="1490308767996" duration="11624000" />
       <workItem from="1490400472372" duration="43141000" />
       <workItem from="1490492856127" duration="1426000" />
-      <workItem from="1490534815762" duration="31737000" />
+      <workItem from="1490534815762" duration="32012000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129287000" />
+    <option name="totallyTimeSpent" value="129562000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -727,13 +707,6 @@
     <entry file="file://$PROJECT_DIR$/include/hardware.h" />
     <entry file="file://$PROJECT_DIR$/kernel_start.h" />
     <entry file="file://$PROJECT_DIR$/load.template" />
-    <entry file="file://$PROJECT_DIR$/load_program.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/init.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -822,38 +795,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/load_program.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-750">
-          <caret line="24" column="39" lean-forward="true" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-250">
-          <caret line="28" column="1" lean-forward="false" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mem_management.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mem_management.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="33" column="10" lean-forward="false" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/kernel_start.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -890,10 +831,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mem_management.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="33" column="10" lean-forward="false" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mem_management.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/process_control_block.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
+        <state relative-caret-position="177">
           <caret line="24" column="90" lean-forward="true" selection-start-line="24" selection-start-column="90" selection-end-line="24" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-90">
+          <caret line="28" column="1" lean-forward="false" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/load_program.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="298" column="0" lean-forward="true" selection-start-line="298" selection-start-column="0" selection-end-line="298" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/load_program.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
