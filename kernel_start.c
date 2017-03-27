@@ -58,7 +58,7 @@ void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void *orig_brk, ch
     //kernel page table
     init_kernel_page_table();
     add_first_record();
-
+    printf("Added first kernel page table record");
     TracePrintf(1,"kernel_start: added first page table kernel");
 
     //Initiate user page table, needs to build process
