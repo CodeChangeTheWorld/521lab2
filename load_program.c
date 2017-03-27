@@ -1,6 +1,6 @@
 #include "load_program.h"
 
-#include "memory_management.h"
+#include "mem_management.h"
 #include "page_table_management.h"
 #include "process_scheduling.h"
 #include "process_control_block.h"
