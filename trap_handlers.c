@@ -75,6 +75,7 @@ void fork_trap_handler(ExceptionInfo *info){
     ContextSwitch(init_region_0_for_child, &parent_pcb->saved_context,(void*)parent_pcb,(void*) child_pcb);
 
     if(parent_pcb->out_of_memory){
+        TracePrintf(1, "trap_handlers: fork attempted, but there is not enough memory for REGION_1 copy.\n");
         struct schedule_item *current = get_head();
         remove_head();
         info->regs[0] = ERROR;

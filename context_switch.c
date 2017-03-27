@@ -60,6 +60,9 @@ SavedContext *MyContextSwitch(SavedContext *ctxp, void *p1, void *p2){
 }
 
 SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
+
+    TracePrintf(3, "context_switch: Starting child_process_region_0_initialization()\n");
+
     int i =0;
     int first_invalid_page = -1;
     struct process_control_block *parent_pcb = (struct process_control_block *)p1;
@@ -89,6 +92,8 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
     //copy region 0 of parent to temp
     if(first_invalid_page!=-1){
+
+        TracePrintf(1, "context_switch: using the user stack for temp virtual page\n");
         for(i = MEM_INVALID_PAGES;i<num_user_pages;i++){
             if(parent_page_table[i].valid == 1){
                 unsigned int child_phy_page_num = get_free_phy_page();
@@ -100,7 +105,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
                 void *parent_addr = (void *)(long)((i*PAGESIZE)+VMEM_0_BASE);
                 void *temp_addr = (void *)(long)((first_invalid_page*PAGESIZE)+VMEM_0_BASE);
-                WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)first_invalid_page);
+                WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
 
                 memcpy(
                     temp_addr,
@@ -109,7 +114,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
                 );
 
                 parent_page_table[first_invalid_page].valid = 0;
-                WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)first_invalid_page);
+                WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
 
                 child_page_table[i].valid=1;
                 child_page_table[i].pfn=child_phy_page_num;
@@ -138,7 +143,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
                     void *parent_addr = (void *)(long)((i*PAGESIZE)+VMEM_0_BASE);
                     void *temp_addr = (void *)(long)((first_invalid_page_region_1*PAGESIZE)+VMEM_1_BASE);
-                    WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)first_invalid_page_region_1);
+                    WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
 
                     memcpy(
                             temp_addr,
@@ -147,7 +152,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
                     );
 
                     kernel_page_table[first_invalid_page_region_1].valid = 0;
-                    WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)first_invalid_page_region_1);
+                    WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
 
                     child_page_table[i].valid=1;
                     child_page_table[i].pfn=child_phy_page_num;
