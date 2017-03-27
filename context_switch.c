@@ -152,7 +152,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
         }
     }
     WriteRegsiter(REG_PTR0, (RCS421RegVal)vaddr_to_paddr(child_page_table));
-    WriteRegister(TLB_FLUSH_0,TLB_FLUSH_0);
+    WriteRegister(TLB_FLUSH_0, (RCS421RegVal) TLB_FLUSH_0);
 
     memcpy(
        &child_pcb->saved_context,
