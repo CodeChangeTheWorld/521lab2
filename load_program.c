@@ -55,7 +55,7 @@ LoadProgram(char *name, char **args, ExceptionInfo *info, struct pte *page_table
     argcount = i;
     cp = argbuf = (char*)malloc(size);
 
-    for(i=0;i<args[i]!=NULL;i++){
+    for(i=0; args[i]!=NULL;i++){
         strcpy(cp, args[i]);
         cp+= strlen(cp)+1;
     }
