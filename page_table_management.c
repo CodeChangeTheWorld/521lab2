@@ -144,9 +144,11 @@ struct pte * create_new_page_table_record() {
     TracePrintf(4,"page_table_management: create_new_page_table_record() called.\n");
     struct page_table_record *current = get_first_page_table_record();
 
+    TracePrintf(5,"page_table_management: Find the last record.\n");
     while(current->next == NULL){
         current = current->next;
     }
+    TracePrintf(5,"page_table_management: Create new record.\n");
     struct page_table_record *new_record = malloc(sizeof(struct page_table_record));
     void *page_base = (void*)DOWN_TO_PAGE((long)current->page_base-1);
     new_record->page_base = page_base;
@@ -154,13 +156,15 @@ struct pte * create_new_page_table_record() {
     new_record->is_top_full = 1;
     new_record->next = NULL;
 
+    TracePrintf(5,"page_table_management: get pfn and vpn.\n");
     unsigned int pfn = get_free_phy_page();
     int vpn= (long)(page_base-VMEM_1_BASE)/PAGESIZE;
 
+    TracePrintf(5,"page_table_management: write kernel_page_table[vpn].\n");
     kernel_page_table[vpn].valid = 1;
     kernel_page_table[vpn].pfn = pfn;
     current->next = new_record;
-
+    
     struct pte *new_page_table = (struct pte*)((long)page_base + PAGE_TABLE_SIZE);
     TracePrintf(4,"page_table_management: create_new_page_table_record() returning.\n");
     return new_page_table;
