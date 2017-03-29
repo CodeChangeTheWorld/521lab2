@@ -25,39 +25,39 @@ void kernel_trap_handler(ExceptionInfo *info){
     int code = info->code;
     switch(code){
         case YALNIX_FORK:
-            TracePrintf(1,"trap_handlers: Fork requested.");
+            TracePrintf(1,"trap_handlers: Fork requested.\n");
             fork_trap_handler(info);
             break;
         case YALNIX_EXEC:
-            TracePrintf(1,"trap_handlers: Exec requested.");
+            TracePrintf(1,"trap_handlers: Exec requested.\n");
             exec_trap_handler(info);
             break;
         case YALNIX_EXIT:
-            TracePrintf(1,"trap_handlers: Exit requested.");
+            TracePrintf(1,"trap_handlers: Exit requested.\n");
             exit_handler(info,0);
             break;
         case YALNIX_WAIT:
-            TracePrintf(1,"trap_handlers: Wait requested.");
+            TracePrintf(1,"trap_handlers: Wait requested.\n");
             wait_trap_handler(info);
             break;
         case YALNIX_GETPID:
-            TracePrintf(1,"trap_handlers: GetPID requested.");
+            TracePrintf(1,"trap_handlers: GetPID requested.\n");
             getpid_handler(info);
             break;
         case YALNIX_BRK:
-            TracePrintf(1,"trap_handlers: Brk requested.");
+            TracePrintf(1,"trap_handlers: Brk requested.\n");
             brk_handler(info);
             break;
         case YALNIX_DELAY:
-            TracePrintf(1,"trap_handlers: Delay requested.");
+            TracePrintf(1,"trap_handlers: Delay requested.\n");
             delay_handler(info);
             break;
         case YALNIX_TTY_READ:
-            TracePrintf(1,"trap_handlers: TTYRead requested.");
+            TracePrintf(1,"trap_handlers: TTYRead requested.\n");
             tty_read_handler(info);
             break;
         case YALNIX_TTY_WRITE:
-            TracePrintf(1,"trap_handlers: TTYWrite requested.");
+            TracePrintf(1,"trap_handlers: TTYWrite requested.\n");
             tty_write_handler(info);
             break;
     }
@@ -65,9 +65,11 @@ void kernel_trap_handler(ExceptionInfo *info){
 
 
 void fork_trap_handler(ExceptionInfo *info){
+    TracePrintf(3, "Handle a fork trap.\n");
     struct schedule_item *item = get_head();
     struct process_control_block *parent_pcb = item->pcb;
 
+    //Create a child process.
     int child_pid = get_next_pid();
     struct process_control_block *child_pcb = create_new_process(child_pid , get_current_pid());
 
