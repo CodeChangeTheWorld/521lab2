@@ -164,18 +164,18 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
     TracePrintf(3, "context_switch: VALID PTE'S:\n");
     for (i = 0; i < VMEM_0_LIMIT/PAGESIZE; i++) {
         if(child_page_table[i].valid == 1){
-            TracePrintf(3, "context_switch: %d, %d \n", i, child_page_table[i].valid);
+            TracePrintf(5, "context_switch: %d, %d \n", i, child_page_table[i].valid);
         }
     }
 
     for (i = 0; i < VMEM_0_LIMIT/PAGESIZE; i++) {
         if(child_page_table[i].valid == 1){
-            TracePrintf(3, "context_switch: %d, %d \n", i, parent_page_table[i].valid);
+            TracePrintf(5, "context_switch: %d, %d \n", i, parent_page_table[i].valid);
         }
     }
-
+    //Write child's page table physical address to register.
     WriteRegister(REG_PTR0, (RCS421RegVal)vaddr_to_paddr(child_page_table));
-    WriteRegister(TLB_FLUSH_0, (RCS421RegVal) TLB_FLUSH_0);
+    WriteRegister(REG_TLB_FLUSH, (RCS421RegVal) TLB_FLUSH_0);
 
     memcpy(
        &child_pcb->saved_context,
