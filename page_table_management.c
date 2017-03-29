@@ -85,7 +85,7 @@ void init_page_table(struct pte* page_table){
 }
 
 struct pte* create_page_table(){
-    TracePrintf(3,"page_table_management: create_page_table start");
+    TracePrintf(3,"page_table_management: create_page_table start.\n");
     struct page_table_record *current = get_first_page_table_record();
     while(current!=NULL){
         if(current->is_top_full == 0){
@@ -100,6 +100,7 @@ struct pte* create_page_table(){
             current= current->next;
         }
     }
+    TracePrintf(4,"page_table_management: create_page_table finish.\n");
     return create_new_page_table_record();
 }
 

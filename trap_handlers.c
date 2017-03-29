@@ -65,7 +65,7 @@ void kernel_trap_handler(ExceptionInfo *info){
 
 
 void fork_trap_handler(ExceptionInfo *info){
-    TracePrintf(3, "Handle a fork trap.\n");
+    TracePrintf(3, "trap_handlers: Handle a fork trap.\n");
     struct schedule_item *item = get_head();
     struct process_control_block *parent_pcb = item->pcb;
 
