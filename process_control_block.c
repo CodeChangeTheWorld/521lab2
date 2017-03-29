@@ -35,7 +35,7 @@ create_new_process(int pid, int parent_id){
 }
 
 struct process_control_block* create_empty_process(int pid, int parent_pid){
-    //TracePrintf(3, "process_control_block: Creating an empty process with pid %d from parent_pid %d \n", pid, parent_pid);
+    TracePrintf(3, "process_control_block: Creating an empty process with pid %d from parent_pid %d \n", pid, parent_pid);
     struct process_control_block *pcb = malloc(sizeof(struct process_control_block));
     pcb->pid=pid;
     pcb->page_table= create_page_table();
@@ -49,6 +49,7 @@ struct process_control_block* create_empty_process(int pid, int parent_pid){
     pcb->is_writing_to_terminal =-1;
     pcb->is_waiting_to_write_to_terminal = -1;
     add_to_schedule(pcb);
+    TracePrintf(3, "process_control_block: Created an empty process.\n");
     return pcb;
 }
 
