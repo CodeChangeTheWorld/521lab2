@@ -100,7 +100,7 @@ struct pte* create_page_table(){
             current= current->next;
         }
     }
-    TracePrintf(4,"page_table_management: create_page_table finish.\n");
+    TracePrintf(3,"page_table_management: create new page table record.\n");
     return create_new_page_table_record();
 }
 
@@ -141,6 +141,7 @@ int num_pages_in_use(struct pte* page_table){
 }
 
 struct pte * create_new_page_table_record() {
+    TracePrintf(4,"page_table_management: create_new_page_table_record() called.\n");
     struct page_table_record *current = get_first_page_table_record();
 
     while(current->next == NULL){
@@ -161,7 +162,6 @@ struct pte * create_new_page_table_record() {
     current->next = new_record;
 
     struct pte *new_page_table = (struct pte*)((long)page_base + PAGE_TABLE_SIZE);
-
-    //we're returning the top half
+    TracePrintf(4,"page_table_management: create_new_page_table_record() returning.\n");
     return new_page_table;
 }
