@@ -15,7 +15,7 @@ void **interrupt_table;
 int is_init = 1;
 
 void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void *orig_brk, char **cmd_args) {
-    TracePrintf(1,"Kernel Start, called %d pages.\n", pmem_size/PAGESIZE);
+    TracePrintf(0,"Kernel Start, called %d pages.\n", pmem_size/PAGESIZE);
     int i;
     //Occupy pages for kernel stack
     init_pysical_pages(pmem_size);
@@ -58,8 +58,7 @@ void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void *orig_brk, ch
     //kernel page table
     init_kernel_page_table();
     add_first_record();
-
-    TracePrintf(1,"kernel_start: added first page table kernel");
+    TracePrintf(0,"kernel_start: added first page table kernel");
 
     //Initiate user page table, needs to build process
     struct process_control_block *idle_pcb=create_idle_process();
@@ -67,16 +66,20 @@ void KernelStart(ExceptionInfo *info, unsigned int pmem_size, void *orig_brk, ch
     //Write page table register and enable virtual memory
     WriteRegister(REG_PTR0, (RCS421RegVal)idle_pcb->page_table);
     WriteRegister(REG_PTR1, (RCS421RegVal)kernel_page_table);
+
+    TracePrintf(0, "kernel_start: Kernel and user page table pointers set.\n");
+
     WriteRegister(REG_VM_ENABLE, 1);
     vm_enabled = 1;
 
     //page table record can only be made after vm enabled.
+    TracePrintf(0, "kernel_start: Create new process.\n");
     struct process_control_block *init_pcb=create_new_process(INIT_PID, ORPHAN_PARENT_PID);
 
     char *loadargs[1];
     loadargs[0] = NULL;
     LoadProgram("idle",loadargs, info, idle_pcb->page_table);
-
+    TracePrintf(0, "kernel_start: load idle process.\n");
     ContextSwitch(idle_init_switch, &idle_pcb->saved_context , (void*)idle_pcb, (void*)init_pcb);
 
     if(is_init==1){

@@ -22,7 +22,6 @@ int new_line_in_buffer(int terminal){
     int i;
     int buffer_index = charbuffers[terminal].read;
     for(i=0;i<charbuffers[terminal].count;i++){
-        TracePrintf();
         if(charbuffers[terminal].buffer[buffer_index] == '\n'){
             return 1;
         }
@@ -62,7 +61,7 @@ int read_from_buffer(int terminal, char *buf, int len){
 int write_to_buffer_raw(int terminal, char *buf, int len){
     int i;
     int num_written=0;
-    for(int i=0;i<len ;i++){
+    for(i=0;i<len ;i++){
         if(charbuffers[terminal].count != TERMINAL_MAX_LINE){ // drop characters if buffer is full
             charbuffers[terminal].buffer[charbuffers[terminal].write] = buf[i];
             charbuffers[terminal].write = (charbuffers[terminal].write+1) % TERMINAL_MAX_LINE;
@@ -74,7 +73,21 @@ int write_to_buffer_raw(int terminal, char *buf, int len){
 }
 int write_to_buffer(int terminal, char *buf, int len){
     int i;
-    while(get_pcb_by_pid()){
-
+    while(get_pcb_writing_to_terminal(terminal)!=NULL){
+        struct schedule_item *item =get_head();
+        struct process_control_block *current_pcb = item->pcb;
+        current_pcb->is_waiting_to_write_to_terminal =terminal;
+        reset_time_till_switch();
+        schedule_processes();
     }
+    int num_written = 0;
+    for(i=0;i<len;i++){
+        if(charbuffers[terminal].count != TERMINAL_MAX_LINE){ // drop characters if buffer is full
+            charbuffers[terminal].buffer[charbuffers[terminal].write] = buf[i];
+            charbuffers[terminal].write = (charbuffers[terminal].write+1) % TERMINAL_MAX_LINE;
+            charbuffers[terminal].count++;
+            num_written++;
+        }
+    }
+    return num_written;
 }

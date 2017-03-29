@@ -12,7 +12,8 @@ void init_kernel_page_table(){
     kernel_page_table = malloc(PAGE_TABLE_SIZE);
 
     int text_bound = ((long)&_etext - (long)VMEM_1_BASE)/PAGESIZE;
-    int heap_bound = ((long)&kernel_brk - (long)VMEM_1_BASE)/PAGESIZE;
+    int heap_bound = ((long)kernel_brk - (long)VMEM_1_BASE)/PAGESIZE;
+
     for(i=0;i<PAGE_TABLE_LEN;i++){
         if(i < text_bound){
             kernel_page_table[i].valid = 1;
@@ -21,7 +22,7 @@ void init_kernel_page_table(){
             kernel_page_table[i].valid = 1;
             kernel_page_table[i].kprot = PROT_READ | PROT_WRITE;
         }else{
-            kernel_page_table[i].valid = 1;
+            kernel_page_table[i].valid = 0;
             kernel_page_table[i].kprot = PROT_READ | PROT_WRITE;
         }
         kernel_page_table[i].uprot = PROT_NONE;
@@ -99,7 +100,7 @@ struct pte* create_page_table(){
             current= current->next;
         }
     }
-    return create_page_table();
+    return create_new_page_table_record();
 }
 
 void free_page_table(struct pte *page_table){
@@ -138,3 +139,28 @@ int num_pages_in_use(struct pte* page_table){
     return count;
 }
 
+struct pte * create_new_page_table_record() {
+    struct page_table_record *current = get_first_page_table_record();
+
+    while(current->next == NULL){
+        current = current->next;
+    }
+    struct page_table_record *new_record = malloc(sizeof(struct page_table_record));
+    void *page_base = (void*)DOWN_TO_PAGE((long)current->page_base-1);
+    new_record->page_base = page_base;
+    new_record->is_bottom_full = 0;
+    new_record->is_top_full = 1;
+    new_record->next = NULL;
+
+    unsigned int pfn = get_free_phy_page();
+    int vpn= (long)(page_base-VMEM_1_BASE)/PAGESIZE;
+
+    kernel_page_table[vpn].valid = 1;
+    kernel_page_table[vpn].pfn = pfn;
+    current->next = new_record;
+
+    struct pte *new_page_table = (struct pte*)((long)page_base + PAGE_TABLE_SIZE);
+
+    //we're returning the top half
+    return new_page_table;
+}

@@ -1,11 +1,14 @@
+//
+// Created by Liu Fang on 3/19/17.
+//
 #include "context_switch.h"
 #include "process_control_block.h"
 #include "mem_management.h"
 #include "page_table_management.h"
 
 SavedContext * idle_init_switch(SavedContext *sct, void* p1, void* p2){
-    int i;
-    int j;
+    int i=0;
+    int j=0;
     struct process_control_block *pcb1 = (struct process_control_block*)p1;
     struct process_control_block *pcb2 = (struct process_control_block*)p2;
 
@@ -42,6 +45,7 @@ SavedContext * idle_init_switch(SavedContext *sct, void* p1, void* p2){
 
     WriteRegister(REG_PTR0, (RCS421RegVal)vaddr_to_paddr(pcb2->page_table));
     WriteRegister(REG_TLB_FLUSH,(RCS421RegVal)TLB_FLUSH_0);
+    TracePrintf(1, "context_switch: end kernel stack copy.\n");
     return &pcb1->saved_context;
 }
 
@@ -56,6 +60,9 @@ SavedContext *MyContextSwitch(SavedContext *ctxp, void *p1, void *p2){
 }
 
 SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
+
+    TracePrintf(0, "context_switch: Starting child_process_region_0_initialization()\n");
+
     int i =0;
     int first_invalid_page = -1;
     struct process_control_block *parent_pcb = (struct process_control_block *)p1;
@@ -85,6 +92,8 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
     //copy region 0 of parent to temp
     if(first_invalid_page!=-1){
+
+        TracePrintf(1, "context_switch: using the user stack for temp virtual page\n");
         for(i = MEM_INVALID_PAGES;i<num_user_pages;i++){
             if(parent_page_table[i].valid == 1){
                 unsigned int child_phy_page_num = get_free_phy_page();
@@ -96,7 +105,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
                 void *parent_addr = (void *)(long)((i*PAGESIZE)+VMEM_0_BASE);
                 void *temp_addr = (void *)(long)((first_invalid_page*PAGESIZE)+VMEM_0_BASE);
-                WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)first_invalid_page);
+                WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
 
                 memcpy(
                     temp_addr,
@@ -105,7 +114,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
                 );
 
                 parent_page_table[first_invalid_page].valid = 0;
-                WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)first_invalid_page);
+                WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
 
                 child_page_table[i].valid=1;
                 child_page_table[i].pfn=child_phy_page_num;
@@ -134,7 +143,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
                     void *parent_addr = (void *)(long)((i*PAGESIZE)+VMEM_0_BASE);
                     void *temp_addr = (void *)(long)((first_invalid_page_region_1*PAGESIZE)+VMEM_1_BASE);
-                    WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)first_invalid_page_region_1);
+                    WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
 
                     memcpy(
                             temp_addr,
@@ -142,8 +151,8 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
                             PAGESIZE
                     );
 
-                    kernel_page_table[first_invalid_page_region_1].valid = 0;
-                    WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)first_invalid_page_region_1);
+                    parent_page_table[first_invalid_page_region_1].valid = 0;
+                    WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
 
                     child_page_table[i].valid=1;
                     child_page_table[i].pfn=child_phy_page_num;
@@ -151,8 +160,22 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
             }
         }
     }
-    WriteRegsiter(REG_PTR0, (RCS421RegVal)vaddr_to_paddr(child_page_table));
-    WriteRegister(TLB_FLUSH_0,TLB_FLUSH_0);
+
+    TracePrintf(3, "context_switch: VALID PTE'S:\n");
+    for (i = 0; i < VMEM_0_LIMIT/PAGESIZE; i++) {
+        if(child_page_table[i].valid == 1){
+            TracePrintf(3, "context_switch: %d, %d \n", i, child_page_table[i].valid);
+        }
+    }
+
+    for (i = 0; i < VMEM_0_LIMIT/PAGESIZE; i++) {
+        if(child_page_table[i].valid == 1){
+            TracePrintf(3, "context_switch: %d, %d \n", i, parent_page_table[i].valid);
+        }
+    }
+
+    WriteRegister(REG_PTR0, (RCS421RegVal)vaddr_to_paddr(child_page_table));
+    WriteRegister(TLB_FLUSH_0, (RCS421RegVal) TLB_FLUSH_0);
 
     memcpy(
        &child_pcb->saved_context,

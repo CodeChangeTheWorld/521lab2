@@ -34,7 +34,7 @@ int SetKernelBrk(void *addr){
 void init_pysical_pages(unsigned int pmem_size){
     //initiate physical page number and an array to keep track of whether a page is occupied.
     phy_page_num = pmem_size/PAGESIZE;
-    phy_page_occupied = malloc(phy_page_num* sizeof(int));
+    phy_page_occupied = malloc(phy_page_num * sizeof(int));
     memset(phy_page_occupied,0,phy_page_num);
 }
 

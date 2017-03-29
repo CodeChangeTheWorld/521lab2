@@ -11,6 +11,29 @@ int can_idle_switch();
 int next_pid = BASE_PID;
 struct schedule_item *head = NULL;
 
+void decrement_delays(){
+    struct schedule_item *current = head;
+    while(current != NULL){
+        struct process_control_block *pcb = current->pcb;
+        if(pcb->delay > 0){
+            pcb->delay--;
+        }
+        current = current->next;
+    }
+}
+
+int
+get_current_pid(){
+    struct schedule_item *item = get_head();
+    struct process_control_block *pcb = item->pcb;
+    return pcb->pid;
+}
+
+int
+get_next_pid(){
+    return next_pid++;
+}
+
 int can_idle_switch(){
     struct schedule_item *current = head->next;
     while(current!=NULL){
@@ -77,7 +100,7 @@ void decapitate(){
         TracePrintf(0, "process_scheduling: decapitate when there is no process. ");
         Halt();
     }
-    struct process_control_block *current_pcb = current_pcb;
+    struct process_control_block *current_pcb = current->pcb;
     if(current_pcb->pid == IDLE_PID){
         TracePrintf(0, "process_scheduling: decapitate IDLE process. ");
         Halt();
@@ -98,7 +121,7 @@ void schedule_process_during_decap(){
     struct schedule_item *next_head = get_head();
     struct process_control_block *next_pcb = next_head->pcb;
 
-    ContextSwitch(MyContextSwitch, &current_pcb->saved_context,(void*)old_head_pcb, (void*)next_pcb);
+    ContextSwitch(MyContextSwitch, &old_head_pcb->saved_context,(void*)old_head_pcb, (void*)next_pcb);
     reset_time_till_switch();
 }
 
@@ -189,8 +212,8 @@ void wake_up_a_reader_for_terminal(int terminal){
 
     while(current != NULL){
         struct process_control_block *pcb= current->pcb;
-        if(pcb->is_waiting_to_read_to_terminal == terminal){
-            pcb->is_waiting_to_read_to_terminal = -1;
+        if(pcb->is_waiting_to_read_from_terminal == terminal){
+            pcb->is_waiting_to_read_from_terminal = -1;
             return;
         }
         current = current->next;
