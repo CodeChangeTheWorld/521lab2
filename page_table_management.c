@@ -145,7 +145,7 @@ struct pte * create_new_page_table_record() {
     struct page_table_record *current = get_first_page_table_record();
 
     TracePrintf(5,"page_table_management: Find the last record.\n");
-    while(current->next == NULL){
+    while(current->next != NULL){
         current = current->next;
     }
     TracePrintf(5,"page_table_management: Create new record.\n");
