@@ -1,7 +1,7 @@
 #include "mem_management.h"
 #include "page_table_management.h"
 #include "process_scheduling.h"
-#include "process_control_block.h"
+#include "pcb.h"
 
 int phy_page_num;
 int *phy_page_occupied = NULL;

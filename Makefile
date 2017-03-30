@@ -34,8 +34,8 @@ ALL = yalnix idle init test_brk test_fork
 #	make up your kernel, and KERNEL_SRCS should  be a list of
 #	the corresponding source files that make up your kernel.
 #
-KERNEL_OBJS = trap_handlers.o process_control_block.o mem_management.o page_table_management.o kernel_start.o load_program.o context_switch.o process_scheduling.o terminals.o
-KERNEL_SRCS = trap_handlers.c process_control_block.c mem_management.c page_table_management.c kernel_start.c load_program.c context_switch.c process_scheduling.c terminals.c
+KERNEL_OBJS = trap_handlers.o pcb.o mem_management.o page_table_management.o kernel_start.o load_program.o context_switch.o process_scheduling.o terminals.o
+KERNEL_SRCS = trap_handlers.c pcb.c mem_management.c page_table_management.c kernel_start.c load_program.c context_switch.c process_scheduling.c terminals.c
 
 #
 #	You should not have to modify anything else in this Makefile

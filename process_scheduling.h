@@ -1,7 +1,6 @@
 #include <comp421/hardware.h>
 #include <comp421/yalnix.h>
 #include <stdlib.h>
-#include "pcb.h"
 
 #define INIT_PID 0
 #define IDLE_PID 1
@@ -10,7 +9,7 @@
 
 struct schedule_item{
     struct schedule_item *next;
-    ProcessControlBlock *pcb;
+    struct process_control_block *pcb;
 };
 
 
@@ -19,10 +18,10 @@ int get_next_pid();
 void move_head_to_tail();
 //void
 
-void add_to_schedule(ProcessControlBlock* pcb);
+void add_to_schedule(struct process_control_block* pcb);
 struct schedule_item * get_head();
 int is_current_process_orphan();
-ProcessControlBlock *get_pcb_by_pid(int pid);
+struct process_control_block *get_pcb_by_pid(int pid);
 
 void decapitate();
 void schedule_process_during_decap();
