@@ -13,33 +13,37 @@ SavedContext * idle_init_switch(SavedContext *sct, void* p1, void* p2){
     struct pte* ptb1 = pcb1->page_table;
     struct pte* ptb2 = pcb2->page_table;
 
-    int i=0, j=0;
+    int i=0, temp_vpn =-1;
+    for(i= MEM_INVALID_PAGES;i<KERNEL_STACK_BASE/PAGESIZE; i++){
+        if(ptb1[i].valid == 0){
+            temp_vpn = i;
+            break;
+        }
+    }
+
     //copy kernel stack
     for(i=0; i< KERNEL_STACK_PAGES; i++){
         unsigned int new_pfn = get_free_phy_page();
-        for(j= MEM_INVALID_PAGES;j<KERNEL_STACK_BASE/PAGESIZE; j++){
-            if(ptb1[j].valid == 0){
-                ptb1[j].valid = 1;
-                ptb1[j].kprot = PROT_READ | PROT_WRITE;
-                ptb1[j].uprot = PROT_READ | PROT_EXEC;
-                ptb1[j].pfn = new_pfn;
 
-                void *p1_addr = (void*)(long)(((KERNEL_STACK_BASE/PAGESIZE + i) * PAGESIZE)+ VMEM_0_BASE);
-                void *temp_addr= (void*)(long)((j*PAGESIZE)+ VMEM_0_BASE);
+        ptb1[temp_vpn].valid = 1;
+        ptb1[temp_vpn].kprot = PROT_READ | PROT_WRITE;
+        ptb1[temp_vpn].uprot = PROT_READ | PROT_EXEC;
+        ptb1[temp_vpn].pfn = new_pfn;
 
-                WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
-                memcpy(
-                        temp_addr,
-                        p1_addr,
-                        PAGESIZE
-                );
-                ptb1[j].valid = 0;
-                WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
+        void *p1_addr = (void*)(long)(((KERNEL_STACK_BASE/PAGESIZE + i) * PAGESIZE)+ VMEM_0_BASE);
+        void *temp_addr= (void*)(long)((temp_vpn*PAGESIZE)+ VMEM_0_BASE);
 
-                ptb2[i+ KERNEL_STACK_BASE/PAGESIZE].pfn = new_pfn;
-                break;
-            }
-        }
+        WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
+
+        memcpy(
+                temp_addr,
+                p1_addr,
+                PAGESIZE
+        );
+
+        ptb1[temp_vpn].valid = 0;
+        WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
+        ptb2[i+ KERNEL_STACK_BASE/PAGESIZE].pfn = new_pfn;
     }
 
     WriteRegister(REG_PTR0, (RCS421RegVal)vaddr_to_paddr(ptb2));
