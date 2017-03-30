@@ -1,7 +1,7 @@
 #include "trap_handlers.h"
 #include <stdio.h>
 #include "process_scheduling.h"
-#include "process_control_block.h"
+#include "pcb.h"
 #include "mem_management.h"
 #include "context_switch.h"
 #include "load_program.h"

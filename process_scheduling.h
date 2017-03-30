@@ -1,6 +1,7 @@
 #include <comp421/hardware.h>
 #include <comp421/yalnix.h>
 #include <stdlib.h>
+#include "pcb.h"
 
 #define INIT_PID 0
 #define IDLE_PID 1
