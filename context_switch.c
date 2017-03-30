@@ -68,13 +68,13 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
     struct pte* ctb = pcb2->page_table;
 
     int pagecount= (VMEM_0_LIMIT - VMEM_0_BASE)/PAGESIZE ,  copypages =0;
-    for(int i=0;i< pagecount;i++){
+    for(i=0;i< pagecount;i++){
         if(ptb[i].valid == 1) copypages++;
     }
 
 
     int temp_vpn = -1;
-    for(int i= MEM_INVALID_PAGES; i< (pcb1->user_stack_limit-(void *)PAGESIZE)/PAGESIZE;i++){
+    for(i= MEM_INVALID_PAGES; i< (pcb1->user_stack_limit-(void *)PAGESIZE)/PAGESIZE;i++){
         if(ptb[i].valid ==0){
             temp_vpn = i;
             break;
