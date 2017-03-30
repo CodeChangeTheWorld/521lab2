@@ -3,7 +3,7 @@
 #include "mem_management.h"
 #include "page_table_management.h"
 #include "process_scheduling.h"
-#include "process_control_block.h"
+#include "pcb.h"
 
 /*
  *  Load a program into the current process's address space.  The

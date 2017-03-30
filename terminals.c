@@ -3,7 +3,7 @@
 //
 #include "terminals.h"
 #include "process_scheduling.h"
-#include "process_control_block.h"
+#include "pcb.h"
 #include "trap_handlers.h"
 
 
@@ -33,7 +33,7 @@ int new_line_in_buffer(int terminal){
 int read_from_buffer(int terminal, char *buf, int len){
     int i;
     struct schedule_item *item = get_head();
-    struct process_control_block *current_pcb = item->pcb;
+    ProcessControlBlock *current_pcb = item->pcb;
 
     while(!new_line_in_buffer(terminal)){
         TracePrintf(3,"terminals: waiting to read aline from terminal %d\n",terminal);
@@ -71,11 +71,12 @@ int write_to_buffer_raw(int terminal, char *buf, int len){
     }
     return num_written;
 }
+
 int write_to_buffer(int terminal, char *buf, int len){
     int i;
     while(get_pcb_writing_to_terminal(terminal)!=NULL){
         struct schedule_item *item =get_head();
-        struct process_control_block *current_pcb = item->pcb;
+        ProcessControlBlock *current_pcb = item->pcb;
         current_pcb->is_waiting_to_write_to_terminal =terminal;
         reset_time_till_switch();
         schedule_processes();

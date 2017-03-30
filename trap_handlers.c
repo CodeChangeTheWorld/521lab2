@@ -1,7 +1,7 @@
 #include "trap_handlers.h"
 #include <stdio.h>
 #include "process_scheduling.h"
-#include "process_control_block.h"
+#include "pcb.h"
 #include "mem_management.h"
 #include "context_switch.h"
 #include "load_program.h"
@@ -66,10 +66,10 @@ void kernel_trap_handler(ExceptionInfo *info){
 
 void fork_trap_handler(ExceptionInfo *info){
     struct schedule_item *item = get_head();
-    struct process_control_block *parent_pcb = item->pcb;
+    ProcessControlBlock *parent_pcb = item->pcb;
 
     int child_pid = get_next_pid();
-    struct process_control_block *child_pcb = create_new_process(child_pid , get_current_pid());
+    ProcessControlBlock *child_pcb = create_new_process(child_pid , get_current_pid());
 
     TracePrintf(3, "%p\n", child_pcb->page_table);
     ContextSwitch(init_region_0_for_child, &parent_pcb->saved_context,(void*)parent_pcb,(void*) child_pcb);
@@ -110,7 +110,7 @@ void exit_handler(ExceptionInfo *info,int error){
     struct  schedule_item *current = get_head();
     TracePrintf(3,"trap_handlers: parent: %d\n", current->pcb->pid);
     if(!is_current_process_orphan()){
-        struct process_control_block * parent_pcb = get_pcb_by_pid(current->pcb->parent_pid);
+        ProcessControlBlock * parent_pcb = get_pcb_by_pid(current->pcb->parent_pid);
         parent_pcb->is_waiting = 0;
         add_child_exit_status();
     }
@@ -130,7 +130,7 @@ void delay_handler(ExceptionInfo *info){
         return;
     }
     struct schedule_item *item =get_head();
-    struct process_control_block *current_pcb = item->pcb;
+    ProcessControlBlock *current_pcb = item->pcb;
     current_pcb->delay = num_ticks_to_wait;
 
     info->regs[0] =0;
@@ -167,7 +167,7 @@ void tty_write_handler(ExceptionInfo *info){
     int len = info->regs[3];
 
     struct schedule_item *item = get_head();
-    struct process_control_block *current_pcb = item->pcb;
+    ProcessControlBlock *current_pcb = item->pcb;
 
     int num_written = write_to_buffer(terminal, buf,len);
     TtyTransmit(terminal, buf, num_written);
@@ -199,7 +199,7 @@ void illegal_trap_handler (ExceptionInfo *info){
 }
 void memory_trap_handler (ExceptionInfo *info){
     struct schedule_item *item = get_head();
-    struct process_control_block *pcb = item->pcb;
+    ProcessControlBlock *pcb = item->pcb;
 
     int code = info->code;
     void *addr = info->addr;
@@ -254,7 +254,7 @@ void tty_recieve_trap_handler (ExceptionInfo *info){
 
 void tty_transmit_trap_handler (ExceptionInfo *info){
     int terminal = info->code;
-    struct process_control_block *pcb= get_pcb_writing_to_terminal(terminal);
+    ProcessControlBlock *pcb= get_pcb_writing_to_terminal(terminal);
 
     if (pcb == NULL) {
         TracePrintf(3, "trap_handlers: on tty_transmit, could not find the process writing to terminal %d.\n", terminal);

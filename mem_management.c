@@ -1,7 +1,7 @@
 #include "mem_management.h"
 #include "page_table_management.h"
 #include "process_scheduling.h"
-#include "process_control_block.h"
+#include "pcb.h"
 
 int phy_page_num;
 int *phy_page_occupied = NULL;
@@ -31,13 +31,23 @@ int SetKernelBrk(void *addr){
     }
     return 0;
 }
-void init_pysical_pages(unsigned int pmem_size){
+
+/*
+ * Initialize physical pages.
+ * pmem_size Physical memory size.
+ */
+void init_physical_pages(unsigned int pmem_size){
     //initiate physical page number and an array to keep track of whether a page is occupied.
     phy_page_num = pmem_size/PAGESIZE;
     phy_page_occupied = malloc(phy_page_num * sizeof(int));
-    memset(phy_page_occupied,0,phy_page_num);
+    memset(phy_page_occupied, 0, phy_page_num);
 }
 
+/*
+ * Occupy pages.
+ * lo: Low end of the pages.
+ * hi: High end of the pages.
+ */
 void occupy_pages(void* lo , void* hi) {
     int low = (long) DOWN_TO_PAGE(lo) / PAGESIZE;
     int high = (long) UP_TO_PAGE(hi) / PAGESIZE;
@@ -46,6 +56,8 @@ void occupy_pages(void* lo , void* hi) {
         phy_page_occupied[i] = 1;
     }
 }
+
+
 void occupy_pages_to(void* to) {
     if(phy_page_occupied!=NULL){
         occupy_pages(kernel_brk,to);
@@ -59,7 +71,6 @@ unsigned int get_top_page(){
     phy_page_occupied[toppn] =1;
     return toppn;
 }
-
 
 int num_free_pages(){
     int count = 0;
