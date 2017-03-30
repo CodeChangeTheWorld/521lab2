@@ -104,7 +104,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
                 WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
                 //copy to child phy page and flush the temp page entry
-                memcoy(
+                memcpy(
                     temp_addr,
                     parent_addr,
                     PAGESIZE
