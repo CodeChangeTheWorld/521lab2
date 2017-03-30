@@ -71,6 +71,7 @@ int write_to_buffer_raw(int terminal, char *buf, int len){
     }
     return num_written;
 }
+
 int write_to_buffer(int terminal, char *buf, int len){
     int i;
     while(get_pcb_writing_to_terminal(terminal)!=NULL){

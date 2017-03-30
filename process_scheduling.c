@@ -1,7 +1,7 @@
 #include <comp421/hardware.h>
 #include <comp421/yalnix.h>
 #include "process_scheduling.h"
-#include "process_control_block.h"
+#include "pcb.h"
 #include "context_switch.h"
 #include "trap_handlers.h"
 #include "page_table_management.h"
@@ -22,15 +22,13 @@ void decrement_delays(){
     }
 }
 
-int
-get_current_pid(){
+int get_current_pid(){
     struct schedule_item *item = get_head();
     struct process_control_block *pcb = item->pcb;
     return pcb->pid;
 }
 
-int
-get_next_pid(){
+int get_next_pid(){
     return next_pid++;
 }
 

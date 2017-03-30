@@ -3,12 +3,19 @@
 
 #define ORPHAN_PARENT_PID -1
 
+/*
+ *  Define the structure of exit status node.
+ */
 struct exit_status_node{
     int exit_status;
     int pid;
     struct exit_status_node *next;
 };
-struct process_control_block{
+
+/*
+ *  Define the structure of a process control block.
+ */
+ struct process_control_block{
     int pid;
     struct pte *page_table;
     SavedContext saved_context;
@@ -24,7 +31,11 @@ struct process_control_block{
     int is_writing_to_terminal;
     int is_waiting_to_write_to_terminal;
 };
+typedef struct process_control_block ProcessControlBlock;
 
-struct process_control_block *create_new_process(int pid, int parent_id);
-struct process_control_block * create_idle_process();
-struct process_control_block* create_empty_process(int pid, int parent_pid);
+/*
+ *  Function prototypes to create processes.
+ */
+ProcessControlBlock * create_new_process(int pid, int parent_id);
+ProcessControlBlock * create_idle_process();
+ProcessControlBlock * create_empty_process(int pid, int parent_pid);

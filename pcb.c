@@ -21,21 +21,32 @@ void add_child_exit_status(struct process_control_block *parent_pcb, int exit_st
     }
 }
 
-struct process_control_block * create_idle_process(){
-    struct process_control_block *pcb = create_empty_process(IDLE_PID, ORPHAN_PARENT_PID);
+/*
+ *  Function to create an idle process.
+ *  Return ProcessControlBlock* Pointer to the pcb of idle process.
+ */
+ProcessControlBlock* create_idle_process(){
+    ProcessControlBlock *pcb = create_empty_process(IDLE_PID, ORPHAN_PARENT_PID);
     init_initial_page_table(pcb->page_table);
     return pcb;
 }
 
-struct process_control_block *
-create_new_process(int pid, int parent_id){
-    struct process_control_block *pcb = create_empty_process(pid,parent_id);
+/*
+ *  Function to create an new process.
+ *  Return ProcessControlBlock* Pointer to the pcb of the new process.
+ */
+ProcessControlBlock* create_new_process(int pid, int parent_id){
+    ProcessControlBlock *pcb = create_empty_process(pid,parent_id);
     init_page_table(pcb->page_table);
     return pcb;
 }
 
-struct process_control_block* create_empty_process(int pid, int parent_pid){
-    struct process_control_block *pcb = malloc(sizeof(struct process_control_block));
+/*
+ *  Function to create an empty process.
+ *  Return ProcessControlBlock* Pointer to the pcb of the empty process.
+ */
+ProcessControlBlock* create_empty_process(int pid, int parent_pid){
+    ProcessControlBlock *pcb = malloc(sizeof(struct process_control_block));
     pcb->pid=pid;
     pcb->page_table= create_page_table();
     pcb->delay =0;
