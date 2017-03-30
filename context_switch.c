@@ -130,7 +130,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
         if(tmp_vpn_1 == -1){
             //region 1 also not valid
             pcb1->out_of_memory =1;
-            return pcb1->saved_context;
+            return &pcb1->saved_context;
         }else{
 
             for(i = MEM_INVALID_PAGES; i< pagecount; i++){
@@ -145,7 +145,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
                     WriteRegister(REG_TLB_FLUSH, (RCS421RegVal)temp_addr);
                     //copy to child phy page and flush the temp page entry
-                    memcoy(
+                    memcpy(
                             temp_addr,
                             parent_addr,
                             PAGESIZE
@@ -183,6 +183,5 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
          &pcb1->saved_context,
          sizeof(SavedContext)
     );
-
     return &pcb2->saved_context;
 }
