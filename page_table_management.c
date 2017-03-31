@@ -142,6 +142,7 @@ int num_pages_in_use(struct pte* page_table){
 }
 
 struct pte * create_new_page_table_record() {
+    TracePrintf(3,"page_table_management: create new page table record 1111");
     struct page_table_record *current = get_first_page_table_record();
 
     while(current->next == NULL){
