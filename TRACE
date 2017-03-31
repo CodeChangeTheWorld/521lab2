@@ -21,23 +21,10 @@ Kernel   LoadProgram: PTEs for program text modified.
 Kernel   LoadProgram: Program Counter set.
 Kernel   LoadProgram: LoadProgram completed.
 Kernel   kernel_start: load idle process.
-Kernel   LoadProgram 'bigstack', args 0x1fffc0
-Kernel   LoadProgram: LoadInfo status 0
-Kernel   text_size 0x7000, data_size 0x130, bss_size 0x3098
-Kernel   entry 0x10100
-Kernel   LoadProgram: size 9, argcount 1
-Kernel   LoadProgram: text_npg 7, data_bss_npg 4, stack_npg 1
-Kernel   LoadProgram: Stack Pointer Initialized.
-Kernel   LoadProgram: old physical memory belonging to process freed.
-Kernel   LoadProgram: Text and data&bss prepped.
-Kernel   LoadProgram: User stack prepped.
-Kernel   LoadProgram: Just finished flushing TLB.
-Kernel   LoadProgram: Dont reading text and data from file into memory.
-Kernel   LoadProgram: PTEs for program text modified.
-Kernel   LoadProgram: Program Counter set.
-Kernel   LoadProgram: LoadProgram completed.
-Kernel   trap_handler: TRAP_MEMORY with addr 0x1f5e18
-Kernel   trap_handlers: Exit requested.Kernel   trap_handlers: parent: 0
+Kernel   LoadProgram 'testfork2', args 0x1fffc0
+Kernel   LoadProgram: can't open file 'testfork2'
+Kernel   trap_handler: TRAP_MEMORY with addr 0x10100
+Kernel   trap_handlers: parent: 0
 Kernel   process_scheduling: Beginning select next process. Kernel   process_scheduling: begin move_next_process_to_head.Kernel   context_switch: Begin context switchKernel   trap_handler: time_till_switch: 1
 Kernel   trap_handler: time_till_switch: 0
 Kernel   process_scheduling: Begin schedule_processesKernel   trap_handler: time_till_switch: 1
@@ -60,16 +47,4 @@ Kernel   process_scheduling: Begin schedule_processesKernel   trap_handler: time
 Kernel   trap_handler: time_till_switch: 0
 Kernel   process_scheduling: Begin schedule_processesKernel   trap_handler: time_till_switch: 1
 Kernel   trap_handler: time_till_switch: 0
-Kernel   process_scheduling: Begin schedule_processesKernel   trap_handler: time_till_switch: 1
-Kernel   trap_handler: time_till_switch: 0
-Kernel   process_scheduling: Begin schedule_processesKernel   trap_handler: time_till_switch: 1
-Kernel   trap_handler: time_till_switch: 0
-Kernel   process_scheduling: Begin schedule_processesKernel   trap_handler: time_till_switch: 1
-Kernel   trap_handler: time_till_switch: 0
-Kernel   process_scheduling: Begin schedule_processesKernel   trap_handler: time_till_switch: 1
-Kernel   trap_handler: time_till_switch: 0
-Kernel   process_scheduling: Begin schedule_processesKernel   trap_handler: time_till_switch: 1
-Kernel   trap_handler: time_till_switch: 0
-Kernel   process_scheduling: Begin schedule_processesKernel   trap_handler: time_till_switch: 1
-Kernel   trap_handler: time_till_switch: 0
-Kernel   process_scheduling: Begin schedule_processesKernel   trap_handler: time_till_switch: 1
+Kernel   process_scheduling: Begin schedule_processes
