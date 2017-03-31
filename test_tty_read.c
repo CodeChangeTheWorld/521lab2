@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 int main(){
-    prinft("Begin tty read\n");
+    printf("Begin tty read\n");
     char *readbuffer = malloc(sizeof(char)* 10);
     TtyRead(0,readbuffer,5);
     printf("%s\n", readbuffer);
