@@ -7,8 +7,8 @@
 #include "page_table_management.h"
 
 SavedContext * idle_init_switch(SavedContext *sct, void* p1, void* p2){
-    struct process_control_block *pcb1 = (struct process_control_block*)p1;
-    struct process_control_block *pcb2 = (struct process_control_block*)p2;
+    ProcessControlBlock *pcb1 = (ProcessControlBlock*)p1;
+    ProcessControlBlock *pcb2 = (ProcessControlBlock*)p2;
 
     struct pte* ptb1 = pcb1->page_table;
     struct pte* ptb2 = pcb2->page_table;
@@ -54,7 +54,7 @@ SavedContext * idle_init_switch(SavedContext *sct, void* p1, void* p2){
 
 SavedContext *MyContextSwitch(SavedContext *ctxp, void *p1, void *p2){
     TracePrintf(3, "context_switch: Begin context switch");
-    struct process_control_block *pcb2 = (struct process_control_block *)p2;
+    ProcessControlBlock *pcb2 = (ProcessControlBlock *)p2;
 
     WriteRegister(REG_PTR0, (RCS421RegVal)vaddr_to_paddr(pcb2->page_table));
     WriteRegister(REG_TLB_FLUSH,(RCS421RegVal)TLB_FLUSH_0);
@@ -65,8 +65,8 @@ SavedContext *MyContextSwitch(SavedContext *ctxp, void *p1, void *p2){
 SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
     int i;
 
-    struct process_control_block *pcb1 = (struct process_control_block*)p1;
-    struct process_control_block *pcb2 = (struct process_control_block*)p2;
+    ProcessControlBlock *pcb1 = (ProcessControlBlock*)p1;
+    ProcessControlBlock *pcb2 = (ProcessControlBlock*)p2;
 
     struct pte* ptb = pcb1->page_table;
     struct pte* ctb = pcb2->page_table;

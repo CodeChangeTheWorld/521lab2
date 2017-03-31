@@ -5,7 +5,7 @@
 #include "stdlib.h"
 
 
-void add_child_exit_status(struct process_control_block *parent_pcb, int exit_status, int child_pid) {
+void add_child_exit_status(ProcessControlBlock *parent_pcb, int exit_status, int child_pid) {
     struct exit_status_node *current = parent_pcb->exit_status_queue;
     struct exit_status_node *new_exit_status_node = malloc(sizeof(struct exit_status_node));
     new_exit_status_node->exit_status = exit_status;
@@ -46,7 +46,7 @@ ProcessControlBlock* create_new_process(int pid, int parent_id){
  *  Return ProcessControlBlock* Pointer to the pcb of the empty process.
  */
 ProcessControlBlock* create_empty_process(int pid, int parent_pid){
-    ProcessControlBlock *pcb = malloc(sizeof(struct process_control_block));
+    ProcessControlBlock *pcb = malloc(sizeof(ProcessControlBlock));
     pcb->pid=pid;
     pcb->page_table= create_page_table();
     pcb->delay =0;

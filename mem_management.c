@@ -125,7 +125,7 @@ void brk_handler(ExceptionInfo *info){
         return;
     }
     struct schedule_item *item = get_head();
-    struct process_control_block *pcb = item->pcb;
+    ProcessControlBlock *pcb = item->pcb;
     void *brk = pcb->brk;
     void *user_stack_limit = pcb->user_stack_limit;
     struct pte* user_page_table = pcb->page_table;
@@ -165,7 +165,7 @@ void brk_handler(ExceptionInfo *info){
 }
 
 void grow_user_stack(void *addr, void *pcb_raw){
-    struct process_control_block *pcb = (struct process_control_block *)pcb_raw;
+    ProcessControlBlock *pcb = (ProcessControlBlock *)pcb_raw;
     int i;
     int num_pages_required = (DOWN_TO_PAGE(pcb->user_stack_limit) -DOWN_TO_PAGE(addr))/PAGESIZE;
     for(i=0;i<num_pages_required;i++){
