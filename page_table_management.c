@@ -100,6 +100,8 @@ struct pte* create_page_table(){
             current= current->next;
         }
     }
+
+    TracePrintf(3, "page_table_management: Creating new page table record\n");
     return create_new_page_table_record();
 }
 
@@ -162,5 +164,6 @@ struct pte * create_new_page_table_record() {
     struct pte *new_page_table = (struct pte*)((long)page_base + PAGE_TABLE_SIZE);
 
     //we're returning the top half
+    TracePrintf(3,"page_table_management: page created");
     return new_page_table;
 }
