@@ -2,9 +2,9 @@
 // Created by Liu Fang on 3/19/17.
 //
 #include "terminals.h"
-#include "process_scheduling.h"
+#include "processQueue.h"
 #include "pcb.h"
-#include "trap_handlers.h"
+#include "trapHandlers.h"
 
 
 int new_line_in_buffer(int terminal);

@@ -1,6 +1,6 @@
-#include "mem_management.h"
-#include "page_table_management.h"
-#include "process_scheduling.h"
+#include "memManagement.h"
+#include "pageTableManagement.h"
+#include "processQueue.h"
 #include "pcb.h"
 
 int phy_page_num;
@@ -11,11 +11,11 @@ void *kernel_brk = (void *)VMEM_1_BASE;
 int SetKernelBrk(void *addr){
     int i;
     if(vm_enabled){
-        int num_page_required= ((long)UP_TO_PAGE(addr) - (long)kernel_brk)/PAGESIZE;
-        if(num_free_pages() < num_page_required){
+        int page_required= ((long)UP_TO_PAGE(addr) - (long)kernel_brk)/PAGESIZE;
+        if(num_free_pages() < page_required){
             return -1;
         }else{
-            for(i =0;i<num_page_required;i++){
+            for(i =0;i<page_required;i++){
                 unsigned int physical_page_number = get_free_phy_page();
                 int vpn = ((long)kernel_brk-VMEM_1_BASE)/PAGESIZE + i;
 

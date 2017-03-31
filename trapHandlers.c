@@ -1,9 +1,9 @@
-#include "trap_handlers.h"
+#include "trapHandlers.h"
 #include <stdio.h>
-#include "process_scheduling.h"
+#include "processQueue.h"
 #include "pcb.h"
-#include "mem_management.h"
-#include "context_switch.h"
+#include "memManagement.h"
+#include "contextSwitch.h"
 #include "load_program.h"
 #include "terminals.h"
 
