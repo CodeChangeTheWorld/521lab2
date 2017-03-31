@@ -1,9 +1,9 @@
 #include <comp421/hardware.h>
 #include <comp421/yalnix.h>
-#include "process_scheduling.h"
-#include "context_switch.h"
-#include "trap_handlers.h"
-#include "page_table_management.h"
+#include "processQueue.h"
+#include "contextSwitch.h"
+#include "trapHandlers.h"
+#include "pageTableManagement.h"
 #include "pcb.h"
 
 int can_idle_switch();

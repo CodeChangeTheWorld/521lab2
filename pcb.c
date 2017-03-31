@@ -1,6 +1,6 @@
 #include "pcb.h"
-#include "process_scheduling.h"
-#include "page_table_management.h"
+#include "processQueue.h"
+#include "pageTableManagement.h"
 #include "stddef.h"
 #include "stdlib.h"
 

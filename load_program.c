@@ -1,8 +1,8 @@
 #include "load_program.h"
 
-#include "mem_management.h"
-#include "page_table_management.h"
-#include "process_scheduling.h"
+#include "memManagement.h"
+#include "pageTableManagement.h"
+#include "processQueue.h"
 #include "pcb.h"
 
 /*

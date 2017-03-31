@@ -1,10 +1,10 @@
 //
 // Created by Liu Fang on 3/19/17.
 //
-#include "context_switch.h"
+#include "contextSwitch.h"
 #include "pcb.h"
-#include "mem_management.h"
-#include "page_table_management.h"
+#include "memManagement.h"
+#include "pageTableManagement.h"
 
 SavedContext * idle_init_switch(SavedContext *sct, void* p1, void* p2){
     ProcessControlBlock *pcb1 = (ProcessControlBlock*)p1;

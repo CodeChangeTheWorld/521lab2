@@ -36,8 +36,8 @@ ALL = yalnix idle init bigstack  forktest0  forkwait0c init1  trapillegal  ttywr
 #	make up your kernel, and KERNEL_SRCS should  be a list of
 #	the corresponding source files that make up your kernel.
 #
-KERNEL_OBJS = trap_handlers.o pcb.o mem_management.o page_table_management.o kernel_start.o load_program.o context_switch.o process_scheduling.o terminals.o
-KERNEL_SRCS = trap_handlers.c pcb.c mem_management.c page_table_management.c kernel_start.c load_program.c context_switch.c process_scheduling.c terminals.c
+KERNEL_OBJS = trapHandlers.o pcb.o memManagement.o pageTableManagement.o kernelStart.o load_program.o contextSwitch.o processQueue.o terminals.o
+KERNEL_SRCS = trapHandlers.c pcb.c memManagement.c pageTableManagement.c kernelStart.c load_program.c contextSwitch.c processQueue.c terminals.c
 
 #
 #	You should not have to modify anything else in this Makefile

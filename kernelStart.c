@@ -1,13 +1,13 @@
 #include <comp421/hardware.h>
 #include <comp421/yalnix.h>
 #include <stdlib.h>
-#include "trap_handlers.h"
-#include "mem_management.h"
-#include "page_table_management.h"
+#include "trapHandlers.h"
+#include "memManagement.h"
+#include "pageTableManagement.h"
 #include "load_program.h"
-#include "context_switch.h"
+#include "contextSwitch.h"
 #include "pcb.h"
-#include "process_scheduling.h"
+#include "processQueue.h"
 #include "terminals.h"
 
 
