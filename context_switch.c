@@ -7,8 +7,8 @@
 #include "page_table_management.h"
 
 SavedContext * idle_init_switch(SavedContext *sct, void* p1, void* p2){
-    struct process_control_block *pcb1 = (struct process_control_block*)p1;
-    struct process_control_block *pcb2 = (struct process_control_block*)p2;
+    struct ProcessControlBlock *pcb1 = (struct ProcessControlBlock*)p1;
+    struct ProcessControlBlock *pcb2 = (struct ProcessControlBlock*)p2;
 
     struct pte* ptb1 = pcb1->page_table;
     struct pte* ptb2 = pcb2->page_table;
@@ -65,8 +65,8 @@ SavedContext *MyContextSwitch(SavedContext *ctxp, void *p1, void *p2){
 SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
     int i;
 
-    struct process_control_block *pcb1 = (struct process_control_block*)p1;
-    struct process_control_block *pcb2 = (struct process_control_block*)p2;
+    struct ProcessControlBlock *pcb1 = (struct ProcessControlBlock*)p1;
+    struct ProcessControlBlock *pcb2 = (struct ProcessControlBlock*)p2;
 
     struct pte* ptb = pcb1->page_table;
     struct pte* ctb = pcb2->page_table;
