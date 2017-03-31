@@ -71,7 +71,7 @@ void fork_trap_handler(ExceptionInfo *info){
     int child_pid = get_next_pid();
     ProcessControlBlock *child_pcb = create_new_process(child_pid , get_current_pid());
 
-    TracePrintf(3, "%p\n", child_pcb->page_table);
+    TracePrintf(2, "%p\n", child_pcb->page_table);
     ContextSwitch(init_region_0_for_child, &parent_pcb->saved_context,(void*)parent_pcb,(void*) child_pcb);
 
     if(parent_pcb->out_of_memory){
