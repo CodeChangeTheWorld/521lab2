@@ -65,6 +65,7 @@ void kernel_trap_handler(ExceptionInfo *info){
 
 
 void fork_trap_handler(ExceptionInfo *info){
+    TracePrintf(1, "trap_handlers: fork attempted, but there is not enough memory for REGION_1 copy.\n");
     struct schedule_item *item = get_head();
     ProcessControlBlock *parent_pcb = item->pcb;
 

@@ -178,6 +178,7 @@ SavedContext *init_region_0_for_child(SavedContext *ctxp, void *p1, void *p2){
 
     WriteRegister(REG_PTR0, (RCS421RegVal) vaddr_to_paddr(ctb));
     WriteRegister(REG_TLB_FLUSH, TLB_FLUSH_0);
+
     memcpy(
          &pcb2->saved_context,
          &pcb1->saved_context,
