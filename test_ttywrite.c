@@ -11,7 +11,7 @@ int main(){
     buf[1] = 'e';
     buf[2] = 'l';
     buf[3] = 'l';
-    buf[4] = '0';
+    buf[4] = 'o';
 
     TtyWrite(0,buf,5);
     printf("Wrote to terminal 0 \n");
