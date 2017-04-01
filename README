@@ -1,10 +1,10 @@
 Members of team:
 Fang Liu(fl16)
-Kyle Bailey (kcb5)
+Zhaohan Jia(zj7)
 
 Kernel Source Files
 
-context_switch
+contextSwitch
   This file listed customized context swich functions:
   1. idle_init_switch
   This is used in kernel start to switch between idle process and initialzation process
@@ -13,7 +13,7 @@ context_switch
   3. init_region_0_for_child
 
 
-kernel_start
+kernelStart
   This is where the entry KernelStart procedure resides. The process for starting the kernel is as
   follows:
     1. Initialize array of free physical pages.
@@ -35,7 +35,7 @@ load_program
     2. struct pte *page_table_to_load
       Pointer to the page table of the process we are loading.
   
-memory_management
+memManagement
   Contains procedures for dealing with memory.
 
   Specifically, it contains:
@@ -44,7 +44,7 @@ memory_management
     3. Procedure for growing user stack.
     4. Helper procedures for dealing with free physical pages.
   
-page_table_management
+pageTableManagement
   Contains procedures for managing page tables.
 
   Specifically, it contains:
@@ -54,7 +54,7 @@ page_table_management
         the top of REGION_1.
     2. Contains helper procedures for creating, preparing, and freeing page tables.
  
-process_control_block
+pcb
   Contains the process control block (pcb) and helper procedures for creating and managing pcbs.
 
   Specifically, it includes the definition of the pcb, which includes these members:
@@ -92,23 +92,9 @@ process_control_block
     14. int is_waiting_to_write_to_terminal
       This signifies that the process is waiting to write to a terminal. The value corresponds
       to the terminal number it is waiting to write to. -1 if it is not waiting to write.
-  
-process_scheduling
-  This contains procedures and structs for scheduling the running of processes.
-
-  Specifically, it contains:
-    1. A linked list whose nodes contain pcbs of all non-terminated processes.
-    2. Whenever we want to schedule a process, we traverse the linked list and choose the first
-        ready process. When selecting the next process to run, priority is given to any process
-        that is not idle. Times when we select a new process include but are not limited to:
-          - Delaying current process
-          - When a process has children and calls Wait but there are no exit statuses to be
-            collected. 
-          - Switching due to two clock ticks occuring while the current process is running.
-          - When a process wants to read or write, but needs to wait.
-          - When the current process is exiting.
-    3. Additional helper procedures for managing the scheduling of processes.
-  
+    15. next
+      This is a point to the next pcb, which refers the next process's pcb in the pcb list.
+ 
 terminals
   This contains all code related to terminal i/o.
 
