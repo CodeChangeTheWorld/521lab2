@@ -27,7 +27,7 @@ void add_child_exit_status(ProcessControlBlock *parent_pcb, int exit_status, int
  */
 ProcessControlBlock* create_idle_process(){
     ProcessControlBlock *pcb = create_empty_process(IDLE_PID, ORPHAN_PARENT_PID);
-    init_initial_page_table(pcb->page_table);
+    init_page_table(pcb->page_table,0);
     return pcb;
 }
 
@@ -37,7 +37,7 @@ ProcessControlBlock* create_idle_process(){
  */
 ProcessControlBlock* create_new_process(int pid, int parent_id){
     ProcessControlBlock *pcb = create_empty_process(pid,parent_id);
-    init_page_table(pcb->page_table);
+    init_page_table(pcb->page_table,1);
     return pcb;
 }
 

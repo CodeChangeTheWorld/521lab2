@@ -49,7 +49,7 @@ void add_first_record(){
     first_page_table_record = rec;
 }
 
-void init_initial_page_table(struct pte* page_table){
+void init_page_table(struct pte* page_table, int initial){
     TracePrintf(2, "page_table_management: user page table for idle process");
     int i;
     for(i=0;i<PAGE_TABLE_LEN;i++){
@@ -62,27 +62,13 @@ void init_initial_page_table(struct pte* page_table){
             page_table[i].kprot = PROT_NONE;
             page_table[i].uprot = PROT_READ | PROT_WRITE | PROT_EXEC;
         }
-        page_table[i].pfn = i;
+
+        if(initial==0){ page_table[i].pfn = i;}
     }
 
     TracePrintf(3, "page_table_management: user page table initialized for idle process");
 }
 
-void init_page_table(struct pte* page_table){
-    int i;
-    for(i=0;i<PAGE_TABLE_LEN;i++){
-        if(i >= KERNEL_STACK_BASE/PAGESIZE){
-            page_table[i].valid = 1;
-            page_table[i].kprot = PROT_READ | PROT_WRITE;
-            page_table[i].uprot = PROT_NONE;
-        }else{
-            page_table[i].valid = 0; //kernel stack should be occupied
-            page_table[i].kprot = PROT_NONE;
-            page_table[i].uprot = PROT_READ | PROT_WRITE | PROT_EXEC;
-        }
-    }
-    TracePrintf(2,"page_table_management: New page table initialized.\n");
-}
 
 struct pte* create_page_table(){
     TracePrintf(3,"page_table_management: create_page_table start");
