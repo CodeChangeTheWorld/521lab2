@@ -103,19 +103,29 @@ void exec_trap_handler(ExceptionInfo *info){
 
 void exit_handler(ExceptionInfo *info,int error){
     int exit_status;
-    if(error){
+    if (error) {
         exit_status = ERROR;
-    }else{
-        exit_status = info->regs[1];
+    } else {
+        exit_status = frame->regs[1];
     }
-    struct  schedule_item *current = get_head();
-    TracePrintf(3,"trap_handlers: parent: %d\n", current->pcb->pid);
-    if(!is_current_process_orphan()){
-        ProcessControlBlock * parent_pcb = get_pcb_by_pid(current->pcb->parent_pid);
+
+    struct schedule_item *current = get_head();
+
+    TracePrintf(3, "trap_handlers: Process of pid %d wants to exit\n", current->pcb->pid);
+
+    if (!is_current_process_orphan()) {
+
+        struct process_control_block *parent_pcb = get_pcb_by_pid(current->pcb->parent_pid);
+        TracePrintf(3, "trap_handlers: parent: %d\n", parent_pcb->pid);
+
         parent_pcb->is_waiting = 0;
-        add_child_exit_status();
+        add_child_exit_status(parent_pcb, exit_status, get_current_pid());
+        TracePrintf(3, "trap_handlers: Finished adding child exit status\n");
     }
+
     decapitate();
+
+    TracePrintf(3, "trap_handlers: %p\n", get_head()->next);
 }
 void wait_trap_handler(ExceptionInfo *info){
 
