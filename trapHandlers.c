@@ -108,13 +108,18 @@ void exit_handler(ExceptionInfo *info,int error){
     }
     ProcessControlBlock *current_pcb = get_head();
     TracePrintf(3,"trap_handlers: parent: %d\n", current_pcb->pid);
-    if(!is_current_process_orphan() ){
-        TracePrintf(3,"trap_handlers: no parent");
+    if( !is_current_process_orphan() ){
+        TracePrintf(3,"trap_handlers: has parent");
         ProcessControlBlock * parent_pcb = get_pcb_by_pid(current_pcb->parent_pid);
+        TracePrintf(3,"trap_handlers: found parent");
         parent_pcb->is_waiting = 0;
-        add_child_exit_status();
+        add_child_exit_status(parent_pcb, exit_status, get_current_pid());
+        TracePrintf(3,"trap_handlers: decapitate");
     }
+    TracePrintf(3,"trap_handlers: decapitate");
     decapitate();
+    TracePrintf(3,"trap_handlers: exit handler ends.");
+    
 }
 void wait_trap_handler(ExceptionInfo *info){
 
