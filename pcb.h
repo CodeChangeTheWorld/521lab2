@@ -1,3 +1,5 @@
+#ifndef PCB_H
+#define PCB_H
 #include <comp421/hardware.h>
 #include <comp421/yalnix.h>
 
@@ -40,3 +42,4 @@ typedef struct process_control_block ProcessControlBlock;
 ProcessControlBlock * create_new_process(int pid, int parent_id);
 ProcessControlBlock * create_idle_process();
 ProcessControlBlock * create_empty_process(int pid, int parent_pid);
+#endif

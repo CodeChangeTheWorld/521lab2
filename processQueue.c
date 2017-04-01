@@ -1,10 +1,9 @@
-#include <comp421/hardware.h>
-#include <comp421/yalnix.h>
+//#include <comp421/hardware.h>
+//#include <comp421/yalnix.h>
 #include "processQueue.h"
-#include "contextSwitch.h"
 #include "trapHandlers.h"
+#include "contextSwitch.h"
 #include "pageTableManagement.h"
-#include "pcb.h"
 
 int can_idle_switch();
 int next_pid = BASE_PID;
@@ -142,7 +141,7 @@ void move_next_process_to_head(int delay){
     ProcessControlBlock *current_pcb = head;
     ProcessControlBlock *previous_pcb = NULL;
 
-    while(current!= NULL){
+    while(current_pcb!= NULL){
         if(current_pcb->delay == delay && current_pcb->is_waiting == 0 
             && current_pcb->is_waiting_to_read_from_terminal == -1 && current_pcb->is_waiting_to_write_to_terminal== -1 
                 && current_pcb->is_writing_to_terminal == -1){
