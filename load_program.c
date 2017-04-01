@@ -196,8 +196,7 @@ LoadProgram(char *name, char **args, ExceptionInfo *frame, struct pte *page_tabl
     }
 
     //Set the brk for the current process
-    struct schedule_item *item = get_head();
-    struct process_control_block *pcb = item->pcb;
+    struct process_control_block *pcb = get_head();
     pcb->brk = (void *)UP_TO_PAGE((MEM_INVALID_PAGES + text_npg + data_bss_npg) * PAGESIZE);
 
     TracePrintf(3, "LoadProgram: Text and data&bss prepped.\n");

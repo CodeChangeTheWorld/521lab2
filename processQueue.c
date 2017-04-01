@@ -8,23 +8,20 @@
 
 int can_idle_switch();
 int next_pid = BASE_PID;
-struct schedule_item *head = NULL;
+ProcessControlBlock *head = NULL;
 
 void decrement_delays(){
-    struct schedule_item *current = head;
+    ProcessControlBlock *current = head;
     while(current != NULL){
-        ProcessControlBlock *pcb = current->pcb;
-        if(pcb->delay > 0){
-            pcb->delay--;
+        if(current->delay > 0){
+            current->delay--;
         }
         current = current->next;
     }
 }
 
 int get_current_pid(){
-    struct schedule_item *item = get_head();
-    ProcessControlBlock *pcb = item->pcb;
-    return pcb->pid;
+    return get_head()-> pid;
 }
 
 int get_next_pid(){
@@ -32,10 +29,9 @@ int get_next_pid(){
 }
 
 int can_idle_switch(){
-    struct schedule_item *current = head->next;
+    ProcessControlBlock *current = head->next;
     while(current!=NULL){
-        ProcessControlBlock *pcb = current->pcb;
-        if(pcb->delay==0){
+        if(current->delay==0){
             return 1;
         }
         current = current->next;
@@ -45,46 +41,43 @@ int can_idle_switch(){
 
 void move_head_to_tail(){
     if(head->next == NULL) return;
-    if(head!=NULL){
-        struct schedule_item *current = get_head();
-        struct schedule_item *new_head = current->next;
-        while(current->next!=NULL){
-            current= current->next;
+    if(head != NULL){
+        ProcessControlBlock *current = get_head();
+        ProcessControlBlock *new_head = current->next;
+        while(current->next != NULL){
+            current = current->next;
         }
         head->next = NULL;
         current->next = head;
-        head= new_head;
+        head = new_head;
     }
 }
 void add_to_schedule(ProcessControlBlock* pcb){
-    struct schedule_item *item = malloc(sizeof(struct schedule_item));
-    item->pcb = pcb;
-    item->next = head;
-    head = item;
+    pcb -> next = head;
+    head = pcb;
 }
 
-struct schedule_item *get_head() {
+ProcessControlBlock *get_head() {
     return head;
 }
 
 void remove_head(){
-    struct schedule_item *current = get_head();
+    ProcessControlBlock *current = get_head();
     head = current->next;
-    free_page_table(current->pcb->page_table);
-    free(current->pcb);
+    free_page_table(current->page_table);
     free(current);
 }
 
 int is_current_process_orphan(){
-    struct schedule_item *head = get_head();
-    return head->pcb->parent_pid = ORPHAN_PARENT_PID;
+    ProcessControlBlock *head = get_head();
+    return head->parent_pid == ORPHAN_PARENT_PID;
 }
 
 ProcessControlBlock* get_pcb_by_pid(int pid){
-    struct schedule_item *current = get_head();
+    ProcessControlBlock *current = get_head();
     while(current!=NULL){
-        if(current->pcb->pid == pid){
-            return current->pcb;
+        if(current->pid == pid){
+            return current;
         }
         current = current->next;
     }
@@ -92,13 +85,12 @@ ProcessControlBlock* get_pcb_by_pid(int pid){
 }
 
 void decapitate(){
-    struct schedule_item *current = get_head();
+    ProcessControlBlock *current = get_head();
     if(current == NULL){
         TracePrintf(0, "process_scheduling: decapitate when there is no process. ");
         Halt();
     }
-    ProcessControlBlock *current_pcb = current->pcb;
-    if(current_pcb->pid == IDLE_PID){
+    if(current->pid == IDLE_PID){
         TracePrintf(0, "process_scheduling: decapitate IDLE process. ");
         Halt();
     }
@@ -109,35 +101,32 @@ void decapitate(){
 
 void schedule_process_during_decap(){
 
-    struct schedule_item *old_head = get_head();
-    ProcessControlBlock *old_head_pcb = old_head->pcb;
+    ProcessControlBlock *old_head = get_head();
 
     //exclude old_head of process selection
     head = old_head->next;
     select_next_process();
-    struct schedule_item *next_head = get_head();
-    ProcessControlBlock *next_pcb = next_head->pcb;
+    ProcessControlBlock *next_head = get_head();
 
-    ContextSwitch(MyContextSwitch, &old_head_pcb->saved_context,(void*)old_head_pcb, (void*)next_pcb);
+    ContextSwitch(MyContextSwitch, &old_head->saved_context,(void*)old_head, (void*)next_head);
     reset_time_till_switch();
 }
 
 void schedule_processes(){
     TracePrintf(2, "process_scheduling: Begin schedule_processes");
-    struct schedule_item *item = get_head();
-    ProcessControlBlock *current_pcb = item->pcb;
+    ProcessControlBlock *current_pcb = get_head();
 
     if(current_pcb->pid != 1 || can_idle_switch()){
         move_head_to_tail();
         select_next_process();
-        item = get_head();
 
-        ProcessControlBlock *next_pcb= item->pcb;
+        ProcessControlBlock *next_pcb = get_head();
         ContextSwitch(MyContextSwitch, &current_pcb->saved_context,(void*)current_pcb, (void*)next_pcb);
 
         reset_time_till_switch();
     }
 }
+
 void select_next_process(){
     TracePrintf(2, "process_scheduling: Beginning select next process. ");
     if(move_next_process_to_head(0)){
@@ -150,24 +139,24 @@ void select_next_process(){
 
 void move_next_process_to_head(int delay){
     TracePrintf(2,"process_scheduling: begin move_next_process_to_head.");
-    struct schedule_item *current = head;
-    struct schedule_item *previous = NULL;
+    ProcessControlBlock *current_pcb = head;
+    ProcessControlBlock *previous_pcb = NULL;
 
     while(current!= NULL){
-        ProcessControlBlock *pcb = current->pcb;
-        if(pcb->delay == delay && pcb->is_waiting == 0 && pcb->is_waiting_to_read_from_terminal == -1
-                &&pcb->is_waiting_to_write_to_terminal== -1 && pcb->is_writing_to_terminal == -1){
-            if(previous == NULL){
+        if(current_pcb->delay == delay && current_pcb->is_waiting == 0 
+            && current_pcb->is_waiting_to_read_from_terminal == -1 && current_pcb->is_waiting_to_write_to_terminal== -1 
+                && current_pcb->is_writing_to_terminal == -1){
+            if(previous_pcb == NULL){
                 return 1;
             }else{
-                previous->next = current->next;
-                current->next = head;
-                head = current;
+                previous_pcb->next = current_pcb->next;
+                current_pcb->next = head;
+                head = current_pcb;
                 return 1;
             }
         }else{
-            previous = current;
-            current = current->next;
+            previous_pcb = current_pcb;
+            current_pcb = current_pcb->next;
         }
     }
     return 0;
@@ -175,14 +164,13 @@ void move_next_process_to_head(int delay){
 
 ProcessControlBlock * get_pcb_writing_to_terminal(int terminal){
     TracePrintf(3, "process_scheduling: looking for process writing to terminals %d\n", terminal);
-    struct schedule_item *current= get_head();
+    ProcessControlBlock *current= get_head();
 
     while(current!=NULL){
-        TracePrintf(3, "process_scheduling: current has pid of %d\n", current->pcb->pid);
-        TracePrintf(3, "process_scheduling: current is writing to terminal: %d\n", current->pcb->is_writing_to_terminal);
-        ProcessControlBlock *pcb = current->pcb;
-        if(pcb->is_writing_to_terminal == terminal){
-            return pcb;
+        TracePrintf(3, "process_scheduling: current has pid of %d\n", current->pid);
+        TracePrintf(3, "process_scheduling: current is writing to terminal: %d\n", current->is_writing_to_terminal);
+        if(current->is_writing_to_terminal == terminal){
+            return current;
         }
         current = current->next;
     }
@@ -192,11 +180,10 @@ ProcessControlBlock * get_pcb_writing_to_terminal(int terminal){
 }
 
 void wake_up_a_writer_for_terminal(int terminal){
-    struct schedule_item *current = get_head();
+    ProcessControlBlock *current = get_head();
     while(current != NULL){
-        ProcessControlBlock *pcb= current->pcb;
-        if(pcb->is_waiting_to_write_to_terminal == terminal){
-            pcb->is_waiting_to_write_to_terminal = -1;
+        if(current->is_waiting_to_write_to_terminal == terminal){
+            current->is_waiting_to_write_to_terminal = -1;
             return;
         }
         current = current->next;
@@ -205,12 +192,11 @@ void wake_up_a_writer_for_terminal(int terminal){
 }
 
 void wake_up_a_reader_for_terminal(int terminal){
-    struct schedule_item *current = get_head();
+    ProcessControlBlock *current = get_head();
 
     while(current != NULL){
-        ProcessControlBlock *pcb= current->pcb;
-        if(pcb->is_waiting_to_read_from_terminal == terminal){
-            pcb->is_waiting_to_read_from_terminal = -1;
+        if(current->is_waiting_to_read_from_terminal == terminal){
+            current->is_waiting_to_read_from_terminal = -1;
             return;
         }
         current = current->next;

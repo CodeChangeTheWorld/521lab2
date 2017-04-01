@@ -65,8 +65,7 @@ void kernel_trap_handler(ExceptionInfo *info){
 
 
 void fork_trap_handler(ExceptionInfo *info){
-    struct schedule_item *item = get_head();
-    ProcessControlBlock *parent_pcb = item->pcb;
+    ProcessControlBlock *parent_pcb = get_head();
 
     int child_pid = get_next_pid();
     ProcessControlBlock *child_pcb = create_new_process(child_pid , get_current_pid());
@@ -76,7 +75,7 @@ void fork_trap_handler(ExceptionInfo *info){
 
     if(parent_pcb->out_of_memory){
         TracePrintf(1, "trap_handlers: fork attempted, but there is not enough memory for REGION_1 copy.\n");
-        struct schedule_item *current = get_head();
+        ProcessControlBlock *current = get_head();
         remove_head();
         info->regs[0] = ERROR;
     }else{
@@ -93,8 +92,8 @@ void exec_trap_handler(ExceptionInfo *info){
     char *filename = (char *)info->regs[1];
     char *argvec = (char *)info->regs[2];
 
-    struct schedule_item *item = get_head();
-    int load_return_val = LoadProgram(filename,argvec,info,item->pcb->page_table);
+    ProcessControlBlock *pcb = get_head();
+    int load_return_val = LoadProgram(filename, argvec, info, pcb->page_table);
     if(load_return_val==-1){
         info->regs[0] = ERROR;
     }
@@ -107,10 +106,10 @@ void exit_handler(ExceptionInfo *info,int error){
     }else{
         exit_status = info->regs[1];
     }
-    struct  schedule_item *current = get_head();
-    TracePrintf(3,"trap_handlers: parent: %d\n", current->pcb->pid);
+    ProcessControlBlock *current_pcb = get_head();
+    TracePrintf(3,"trap_handlers: parent: %d\n", current_pcb->pid);
     if(!is_current_process_orphan()){
-        ProcessControlBlock * parent_pcb = get_pcb_by_pid(current->pcb->parent_pid);
+        ProcessControlBlock * parent_pcb = get_pcb_by_pid(current_pcb->parent_pid);
         parent_pcb->is_waiting = 0;
         add_child_exit_status();
     }
@@ -129,8 +128,7 @@ void delay_handler(ExceptionInfo *info){
         info->regs[0] = ERROR;
         return;
     }
-    struct schedule_item *item =get_head();
-    ProcessControlBlock *current_pcb = item->pcb;
+    ProcessControlBlock *current_pcb = get_head();
     current_pcb->delay = num_ticks_to_wait;
 
     info->regs[0] =0;
@@ -166,8 +164,7 @@ void tty_write_handler(ExceptionInfo *info){
     void* buf = (void*)info->regs[2];
     int len = info->regs[3];
 
-    struct schedule_item *item = get_head();
-    ProcessControlBlock *current_pcb = item->pcb;
+    ProcessControlBlock *current_pcb = get_head();
 
     int num_written = write_to_buffer(terminal, buf,len);
     TtyTransmit(terminal, buf, num_written);
@@ -198,8 +195,7 @@ void illegal_trap_handler (ExceptionInfo *info){
     exit_handler(info,1);
 }
 void memory_trap_handler (ExceptionInfo *info){
-    struct schedule_item *item = get_head();
-    ProcessControlBlock *pcb = item->pcb;
+    ProcessControlBlock *pcb = get_head();
 
     int code = info->code;
     void *addr = info->addr;

@@ -108,8 +108,8 @@ void* vaddr_to_paddr(void *vm_addr){
         pfn = kernel_page_table[vpn].pfn;
     }else{
         vpn = (long)vpage_base/PAGESIZE;
-        struct schedule_item *current = get_head();
-        pfn = current->pcb->page_table[vpn].pfn;
+        ProcessControlBlock *current_pcb = get_head();
+        pfn = current_pcb->page_table[vpn].pfn;
     }
     ppage_base = (void*)(long)(pfn*PAGESIZE);
     long offset = (long)vm_addr&PAGEOFFSET;
@@ -124,8 +124,8 @@ void brk_handler(ExceptionInfo *info){
         info->regs[0] = ERROR;
         return;
     }
-    struct schedule_item *item = get_head();
-    ProcessControlBlock *pcb = item->pcb;
+
+    ProcessControlBlock *pcb = get_head();
     void *brk = pcb->brk;
     void *user_stack_limit = pcb->user_stack_limit;
     struct pte* user_page_table = pcb->page_table;

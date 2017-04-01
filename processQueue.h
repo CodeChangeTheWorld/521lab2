@@ -7,11 +7,6 @@
 #define BASE_PID 2
 #define IDLE_DELAY -1
 
-struct schedule_item{
-    struct schedule_item *next;
-    struct process_control_block *pcb;
-};
-
 
 int get_current_pid();
 int get_next_pid();
@@ -19,7 +14,7 @@ void move_head_to_tail();
 //void
 
 void add_to_schedule(struct process_control_block* pcb);
-struct schedule_item * get_head();
+struct process_control_block * get_head();
 int is_current_process_orphan();
 struct process_control_block *get_pcb_by_pid(int pid);
 
