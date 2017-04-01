@@ -106,7 +106,7 @@ void exit_handler(ExceptionInfo *info,int error){
     if (error) {
         exit_status = ERROR;
     } else {
-        exit_status = frame->regs[1];
+        exit_status = info->regs[1];
     }
 
     struct schedule_item *current = get_head();
