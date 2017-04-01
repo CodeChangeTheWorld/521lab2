@@ -1,5 +1,6 @@
 #include "memManagement.h"
 #include "pageTableManagement.h"
+#include <stdbool.h>
 
 struct pte *kernel_page_table;
 struct page_table_record *first_page_table_record;
