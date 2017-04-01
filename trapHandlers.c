@@ -95,6 +95,7 @@ void exec_trap_handler(ExceptionInfo *info){
 
     struct schedule_item *item = get_head();
     int load_return_val = LoadProgram(filename,argvec,info,item->pcb->page_table);
+    TracePrintf(3,"trap_handlers: load_return_val: %d\n", load_return_val);
     if(load_return_val==-1){
         info->regs[0] = ERROR;
     }
