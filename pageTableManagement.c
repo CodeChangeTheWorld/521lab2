@@ -49,7 +49,7 @@ void add_first_record(){
     first_page_table_record = rec;
 }
 
-void init_page_table(struct pte* page_table, bool initial){
+void init_page_table(struct pte* page_table, int initial){
     TracePrintf(2, "page_table_management: user page table for idle process");
     int i;
     for(i=0;i<PAGE_TABLE_LEN;i++){
@@ -63,7 +63,7 @@ void init_page_table(struct pte* page_table, bool initial){
             page_table[i].uprot = PROT_READ | PROT_WRITE | PROT_EXEC;
         }
 
-        if(initial){ page_table[i].pfn = i;}
+        if(initial==0){ page_table[i].pfn = i;}
     }
 
     TracePrintf(3, "page_table_management: user page table initialized for idle process");
