@@ -25,39 +25,39 @@ void kernel_trap_handler(ExceptionInfo *info){
     int code = info->code;
     switch(code){
         case YALNIX_FORK:
-            TracePrintf(1,"trap_handlers: Fork requested.");
+            TracePrintf(1,"trapHandler: Fork requested.");
             fork_trap_handler(info);
             break;
         case YALNIX_EXEC:
-            TracePrintf(1,"trap_handlers: Exec requested.");
+            TracePrintf(1,"trapHandler: Exec requested.");
             exec_trap_handler(info);
             break;
         case YALNIX_EXIT:
-            TracePrintf(1,"trap_handlers: Exit requested.");
+            TracePrintf(1,"trapHandler: Exit requested.");
             exit_handler(info,0);
             break;
         case YALNIX_WAIT:
-            TracePrintf(1,"trap_handlers: Wait requested.");
+            TracePrintf(1,"trapHandler: Wait requested.");
             wait_trap_handler(info);
             break;
         case YALNIX_GETPID:
-            TracePrintf(1,"trap_handlers: GetPID requested.");
+            TracePrintf(1,"trapHandler: GetPID requested.");
             getpid_handler(info);
             break;
         case YALNIX_BRK:
-            TracePrintf(1,"trap_handlers: Brk requested.");
+            TracePrintf(1,"trapHandler: Brk requested.");
             brk_handler(info);
             break;
         case YALNIX_DELAY:
-            TracePrintf(1,"trap_handlers: Delay requested.");
+            TracePrintf(1,"trapHandler: Delay requested.");
             delay_handler(info);
             break;
         case YALNIX_TTY_READ:
-            TracePrintf(1,"trap_handlers: TTYRead requested.");
+            TracePrintf(1,"trapHandler: TTYRead requested.");
             tty_read_handler(info);
             break;
         case YALNIX_TTY_WRITE:
-            TracePrintf(1,"trap_handlers: TTYWrite requested.");
+            TracePrintf(1,"trapHandler: TTYWrite requested.");
             tty_write_handler(info);
             break;
     }
@@ -74,7 +74,7 @@ void fork_trap_handler(ExceptionInfo *info){
     ContextSwitch(init_region_0_for_child, &parent_pcb->saved_context,(void*)parent_pcb,(void*) child_pcb);
 
     if(parent_pcb->out_of_memory){
-        TracePrintf(1, "trap_handlers: fork attempted, but there is not enough memory for REGION_1 copy.\n");
+        TracePrintf(1, "trapHandler: fork attempted, but there is not enough memory for REGION_1 copy.\n");
         ProcessControlBlock *current = get_head();
         remove_head();
         info->regs[0] = ERROR;
@@ -89,11 +89,15 @@ void fork_trap_handler(ExceptionInfo *info){
 }
 
 void exec_trap_handler(ExceptionInfo *info){
+    TracePrintf(3,"trapHandler: exec_trap_handler\n");
     char *filename = (char *)info->regs[1];
-    char *argvec = (char *)info->regs[2];
+    char **argvec = (char **)info->regs[2];
 
+    TracePrintf(10,"trapHandler: exec getting head\n");
     ProcessControlBlock *pcb = get_head();
+    TracePrintf(10,"trapHandler: loading program\n");
     int load_return_val = LoadProgram(filename, argvec, info, pcb->page_table);
+    TracePrintf(10,"trapHandler: checking load result\n");
     if(load_return_val==-1){
         info->regs[0] = ERROR;
     }
@@ -107,13 +111,19 @@ void exit_handler(ExceptionInfo *info,int error){
         exit_status = info->regs[1];
     }
     ProcessControlBlock *current_pcb = get_head();
-    TracePrintf(3,"trap_handlers: parent: %d\n", current_pcb->pid);
-    if(!is_current_process_orphan()){
+    TracePrintf(3,"trapHandler: parent: %d\n", current_pcb->pid);
+    if( !is_current_process_orphan() ){
+        TracePrintf(10,"trapHandler: has parent");
         ProcessControlBlock * parent_pcb = get_pcb_by_pid(current_pcb->parent_pid);
+        TracePrintf(10,"trapHandler: found parent");
         parent_pcb->is_waiting = 0;
-        add_child_exit_status();
+        add_child_exit_status(parent_pcb, exit_status, get_current_pid());
+        TracePrintf(10,"trapHandler: decapitate");
     }
+    TracePrintf(3,"trapHandler: decapitate");
     decapitate();
+    TracePrintf(3,"trapHandler: exit handler ends.");
+    
 }
 void wait_trap_handler(ExceptionInfo *info){
 
@@ -191,7 +201,7 @@ void clock_trap_handler (ExceptionInfo *info){
 void illegal_trap_handler (ExceptionInfo *info){
     int code = info->code;
     int current_pid = get_current_pid();
-    printf("trap_handlers: Terminating current process of pid %d due to TRAP_ILLEGAL of code %d\n", current_pid,code);
+    printf("trapHandler: Terminating current process of pid %d due to TRAP_ILLEGAL of code %d\n", current_pid,code);
     exit_handler(info,1);
 }
 void memory_trap_handler (ExceptionInfo *info){
@@ -229,10 +239,10 @@ void memory_trap_handler (ExceptionInfo *info){
     exit_handler(info,1);
 }
 void math_trap_handler (ExceptionInfo *info){
-    TracePrintf(1,"trap_handlers: Entering TRAP_MATH interrupt handler\n");
+    TracePrintf(1,"trapHandler: Entering TRAP_MATH interrupt handler\n");
     int code = info->code;
     int current_pid = get_current_pid();
-    printf("trap_handlers: Terminating current process of pid %d due to TRAP_MATH of code %d",current_pid,code);
+    printf("trapHandler: Terminating current process of pid %d due to TRAP_MATH of code %d",current_pid,code);
     exit_handler(info, 1);
 }
 
@@ -245,7 +255,7 @@ void tty_recieve_trap_handler (ExceptionInfo *info){
     if(new_line_in_buffer(terminal)){
         wake_up_a_reader_for_terminal(terminal);
     }
-    TracePrintf(1, "trap_handlers: Received %d chars from terminal %d.\n", num_chars_received, terminal);
+    TracePrintf(1, "trapHandler: Received %d chars from terminal %d.\n", num_chars_received, terminal);
 }
 
 void tty_transmit_trap_handler (ExceptionInfo *info){
@@ -253,13 +263,13 @@ void tty_transmit_trap_handler (ExceptionInfo *info){
     ProcessControlBlock *pcb= get_pcb_writing_to_terminal(terminal);
 
     if (pcb == NULL) {
-        TracePrintf(3, "trap_handlers: on tty_transmit, could not find the process writing to terminal %d.\n", terminal);
+        TracePrintf(3, "trapHandler: on tty_transmit, could not find the process writing to terminal %d.\n", terminal);
     } else {
-        TracePrintf(3, "trap_handlers: process with pid %d found to have been writing to terminal %d.\n", pcb->pid, terminal);
+        TracePrintf(3, "trapHandler: process with pid %d found to have been writing to terminal %d.\n", pcb->pid, terminal);
     }
 
     wake_up_a_writer_for_terminal(terminal);
-    TracePrintf(1,"trap_handlers: TRAP_TTY_TRANSMIT handler finished.\\n");
+    TracePrintf(1,"trapHandler: TRAP_TTY_TRANSMIT handler finished.\\n");
 }
 
 void reset_time_till_switch() {
