@@ -58,6 +58,7 @@ ProcessControlBlock* create_empty_process(int pid, int parent_pid){
     pcb->is_waiting_to_read_from_terminal = -1;
     pcb->is_writing_to_terminal =-1;
     pcb->is_waiting_to_write_to_terminal = -1;
+    pcb->next = NULL;
     add_to_schedule(pcb);
     return pcb;
 }

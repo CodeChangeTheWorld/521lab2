@@ -30,6 +30,7 @@ struct exit_status_node{
     int is_waiting_to_read_from_terminal;
     int is_writing_to_terminal;
     int is_waiting_to_write_to_terminal;
+    struct process_control_block *next;
 };
 typedef struct process_control_block ProcessControlBlock;
 
